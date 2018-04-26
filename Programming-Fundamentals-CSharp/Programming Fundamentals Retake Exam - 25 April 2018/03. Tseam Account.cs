@@ -11,9 +11,9 @@ namespace Task_3_Tseam_Account
         static void Main(string[] args)
         {
             List<string> account = Console.ReadLine()
-                    .Split(new string[] { " " },
-                    StringSplitOptions.RemoveEmptyEntries)
-                    .ToList();
+               .Split(new string[] { " " },
+               StringSplitOptions.RemoveEmptyEntries)
+               .ToList();
 
             string input = Console.ReadLine();
 
