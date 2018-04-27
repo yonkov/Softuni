@@ -22,14 +22,12 @@ namespace Task_2_Kamino_Factory
             int bestCounter = 0;
 
             while (input != "Clone them!")
-            {
-                
+            {                
                 array = input
                 .Split(new char[] { '!' },
                 StringSplitOptions.RemoveEmptyEntries)
                 .Select(int.Parse).ToArray();
-
-                
+   
                 int counter = 0;
                 int startIndex = 0;
 
@@ -47,7 +45,6 @@ namespace Task_2_Kamino_Factory
                             result = array;
                             bestIteration = iteration;
                             bestIndex = startIndex;
-
                         }
 
                         if (bestCounter==counter && bestIndex>startIndex)
