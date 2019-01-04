@@ -10,7 +10,7 @@
   "bugs": {
     "url": "https://github.com/yonkov/Softuni/issues"
   },
-  "homepage": "https://github.com/yonkov/Softuni/JS Applications/Exam 08-2017#index.html",
+  "homepage": "https://github.com/yonkov/Softuni/blob/master/JS%20Core/JS%20Applications/Exam%2008-2017/index.html",
   "devDependencies": {
     "handlebars": "^4.0.12",
     "jquery": "^3.3.1",
