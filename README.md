@@ -1,7 +1,7 @@
-Courses: 
-1. Programming Basics with C#
-2. Programming Fundamentals with C# 
-3. Software Technologies 
-4. JS Fundamentals 
-5. JS Advanced 
-6. JS Applications
+Passed Courses: 
+1. Programming Basics with C# (October 2017)
+2. Programming Fundamentals with C# (January 2018)
+3. Software Technologies (April 2018)
+4. JS Fundamentals (September 2018)
+5. JS Advanced (October 2018)
+6. JS Applications (November 2018)
