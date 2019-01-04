@@ -5,5 +5,21 @@
     "handlebars": "^4.0.12",
     "jquery": "^3.3.1",
     "sammy": "^0.7.6"
-  }
+  },
+  
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yonkov/Softuni.git"
+  },
+  "keywords": [],
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/yonkov/Softuni/issues"
+  },
+  "homepage": "https://github.com/yonkov/Softuni/JS Applications/Exam 08-2017#index.html",
+  "devDependencies": {
+    "handlebars": "^4.0.12",
+    "jquery": "^3.3.1",
+    "sammy": "^0.7.6"
+}
 }
