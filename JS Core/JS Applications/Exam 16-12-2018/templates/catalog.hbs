@@ -1,0 +1,35 @@
+{{> header}}
+<section class="dashboard">
+    <h1>Dashboard</h1>
+    <nav class="navbar">
+        <ul>
+            <li><a href="#/all">All</a></li>
+            <li><a href="#/cats">Cats</a></li>
+            <li><a href="#/dogs">Dogs</a></li>
+            <li><a href="#/parrots">Parrots</a></li>
+            <li><a href="#/reptiles">Reptiles</a></li>
+            <li><a href="#/other">Other</a></li>
+        </ul>
+    </nav>
+    <ul class="other-pets-list">
+        {{#each pets}}
+        {{#if isNotAuthor}}
+        <li class="otherPet">      
+            <h3>Name: {{name}}</h3>
+            <p>Category: {{category}}</p>
+            <p class="img"><img src="{{imageURL}}"></p>
+            <p class="description">{{description}}</p>
+            <div class="pet-info">
+                
+                 <form action="#/pet/{{pet._id}}" method="POST">
+                <a href="#/pet/{{_id}}"><button class="button"><i class="fas fa-heart"></i> Pet</button></a>
+                <a href="#/details/{{_id}}"><button class="button">Details</button></a>
+                <i class="fas fa-heart"></i> <span> {{likes}}</span>
+                </form>
+            </div>
+        </li>
+        {{/if}}
+        {{/each}}
+    </ul>
+</section>
+{{> footer}}
