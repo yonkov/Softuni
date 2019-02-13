@@ -1,4 +1,4 @@
-Passed Courses: 
+Courses: 
 1. Programming Basics with C# (October 2017)
 2. Programming Fundamentals with C# (January 2018)
 3. Software Technologies (April 2018)
