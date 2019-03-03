@@ -27,10 +27,11 @@ module.exports = {
         email,
         hashedPassword,
         username,
+        roles: ['User'],
         salt
       }).then((user) => {
         res.status(201)
-          .json({ message: 'User created!', userId: user._id, username: user.username });
+          .json({ message: 'User created!', userId: user._id, username: user.username, isAdmin: user.roles.indexOf('Admin') != -1 });
       })
       .catch((error) => {
         if (!error.statusCode) {
