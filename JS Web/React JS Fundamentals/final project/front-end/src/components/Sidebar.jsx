@@ -15,9 +15,9 @@ const Sidebar = () => {
             {/* END sidebar-box */}
             <div className="sidebar-box">
                 <div className="bio text-center">
-                    <img src="images/person_1.jpg" alt="Image Placeholder" className="img-fluid" />
+                    <img src="images/atanas-yonkov.jpg" alt="Image Placeholder" className="img-fluid" />
                     <div className="bio-body">
-                        <h2>David Craig</h2>
+                        <h2>Atanas Yonkov</h2>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem facilis sunt repellendus
                         excepturi beatae porro debitis voluptate nulla quo veniam fuga sit molestias minus.</p>
                         <p><a href="#" className="btn btn-primary btn-sm rounded">Read my bio</a></p>

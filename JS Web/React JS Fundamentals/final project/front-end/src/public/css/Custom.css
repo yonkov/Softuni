@@ -89,3 +89,9 @@ body {
   background-color: #f5f5f5 ;
   padding: 40px;
 }
+
+.btn.btn-primary.btn-sm.rounded:hover {
+
+  background: rgb(0, 123, 255);
+
+}

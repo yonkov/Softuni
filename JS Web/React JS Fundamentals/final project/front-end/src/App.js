@@ -31,10 +31,9 @@ class App extends Component {
       username: null,
       isAdmin: false,
       isAuthed: false,
+      posts: []
     }
-    this.logout = this.logout.bind(this);
   }
-
 
   componentWillMount() {
     const isAdmin = localStorage.getItem('isAdmin') === "true"
@@ -48,6 +47,8 @@ class App extends Component {
         isAuthed
       })
     }
+    
+    this.getPosts()
     
   }
 
@@ -115,7 +116,8 @@ class App extends Component {
         body => {
           if (!body.errors) {
             toast.success(body.message);
-
+            this.props.history.push('/');
+            this.getPosts()
           }
           else {
             toast.error(body.message);
@@ -126,6 +128,26 @@ class App extends Component {
 
   }
 
+  getPosts(){
+    fetch('http://localhost:9999/feed/posts')
+    .then(rawData => rawData.json())
+      .then(
+      body =>{
+        this.setState({
+          posts: body.posts
+        })
+        // if (!body.errors) {
+        //   toast.success(body.message);  
+        // }
+        // else{
+        //   toast.error(body.message);
+        // }      
+      }
+      )
+    .catch(error => console.error(error));
+  }
+  
+
   logout() {
 
     this.setState({
@@ -135,6 +157,7 @@ class App extends Component {
       isAuthed: false,
     })
     localStorage.clear();
+    toast.success("You have been successfully logged out!")
   }
 
   render() {
@@ -145,31 +168,33 @@ class App extends Component {
         
         <Switch>
           
-          <Route exact path="/" component={Home} />
+          <Route exact path="/" render={() =>
+            <Home 
+              posts={this.state.posts} />} />
           
-          <Route path="/login"
-            render={() => 
-            this.state.isAuthed ? <Redirect to="/" /> 
-            :
-            <Login
-              handleSubmit={this.handleSubmit.bind(this)}
-              handleChange={this.handleChange}
-              history={this.props.history} />} />
-          
-          <Route path="/register"
-            render={() => 
-              this.state.isAuthed ? <Redirect to="/" /> 
-              :
-              <Register
-                handleSubmit={this.handleSubmit.bind(this)}
-                handleChange={this.handleChange}
-                history={this.props.history} />} />
+          <Route path="/login" render={() => 
+              this.state.isAuthed ? 
+                <Redirect to="/" /> 
+                :
+                <Login
+                  handleSubmit={this.handleSubmit.bind(this)}
+                  handleChange={this.handleChange}
+                  history={this.props.history} />} />
+            
+          <Route path="/register" render={() => 
+              this.state.isAuthed ? 
+                <Redirect to="/" /> 
+                :
+                <Register
+                  handleSubmit={this.handleSubmit.bind(this)}
+                  handleChange={this.handleChange}
+                  history={this.props.history} />} />
           
           <Route path="/logout" render={() => {
             return (<Redirect to="/login" />)}}/>;
 
-          <PrivateRoute path="/create" isAdmin={this.state.isAdmin} 
-          render={() =>
+          <PrivateRoute path="/create" 
+            isAdmin={this.state.isAdmin} render={() =>
             <Create handleSubmit={this.handleCreateSubmit.bind(this)}
               handleChange={this.handleChange}
               history={this.props.history} />} />

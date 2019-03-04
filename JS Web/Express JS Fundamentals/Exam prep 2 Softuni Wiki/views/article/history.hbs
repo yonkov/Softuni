@@ -1,0 +1,14 @@
+<section>
+    <h2>{{title}}</h2>
+    <div class="spacer">
+        <h3>Edit history</h3>
+        <ul>
+            {{#each articleHistory}}
+            <li>
+                <a href="/article/details/{{_id}}">{{creationDate}}</a> by
+                <span class="author">{{author.email}}</span>
+            </li>
+            {{/each}}
+        </ul>
+    </div>
+</section>

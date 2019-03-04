@@ -16,102 +16,23 @@ class Home extends Component {
             <div className="row blog-entries">
               <div className="col-md-12 col-lg-8 main-content">
                 <div className="row">
+                {/* Dynamic content here */}
+                {this.props.posts.map(post =>
                   <div className="col-md-6">
-                    <a href="blog-single.html" className="blog-entry element-animate fadeIn element-animated" data-animate-effect="fadeIn">
-                      <img src="images/img_5.jpg" alt="Image placeholder" />
-                      <div className="blog-content-body">
-                        <div className="post-meta">
-                          <span className="author mr-2"><img src="images/person_1.jpg" alt="Colorlib" /> Colorlib</span>•
-                          <span className="mr-2">March 15, 2018 </span> •
-                        </div>
-                        <h2>How to Find the Video Games of Your Youth</h2>
+                  <a href="blog-single.html" className="blog-entry element-animate fadeIn element-animated" data-animate-effect="fadeIn">
+                    <img src={post.imageUrl} alt="featured" />
+                    <div className="blog-content-body">
+                      <div className="post-meta">
+                        <span className="author mr-2"><img src="images/atanas-yonkov.jpg" alt="author" /> {post.author}</span>•
+                        <span className="mr-2">{Date.parse(post.creationDate)} </span>
                       </div>
-                    </a>
-                  </div>
-                  <div className="col-md-6">
-                    <a href="blog-single.html" className="blog-entry element-animate fadeIn element-animated" data-animate-effect="fadeIn">
-                      <img src="images/img_6.jpg" alt="Image placeholder" />
-                      <div className="blog-content-body">
-                        <div className="post-meta">
-                          <span className="author mr-2"><img src="images/person_1.jpg" alt="Colorlib" /> Colorlib</span>•
-                          <span className="mr-2">March 15, 2018 </span> •
-                        </div>
-                        <h2>How to Find the Video Games of Your Youth</h2>
-                      </div>
-                    </a>
-                  </div>
-                  <div className="col-md-6">
-                    <a href="blog-single.html" className="blog-entry element-animate fadeIn element-animated" data-animate-effect="fadeIn">
-                      <img src="images/img_7.jpg" alt="Image placeholder" />
-                      <div className="blog-content-body">
-                        <div className="post-meta">
-                          <span className="author mr-2"><img src="images/person_1.jpg" alt="Colorlib" /> Colorlib</span>•
-                          <span className="mr-2">March 15, 2018 </span> •
-                        </div>
-                        <h2>How to Find the Video Games of Your Youth</h2>
-                      </div>
-                    </a>
-                  </div>
-                  <div className="col-md-6">
-                    <a href="blog-single.html" className="blog-entry element-animate fadeIn element-animated" data-animate-effect="fadeIn">
-                      <img src="images/img_8.jpg" alt="Image placeholder" />
-                      <div className="blog-content-body">
-                        <div className="post-meta">
-                          <span className="author mr-2"><img src="images/person_1.jpg" alt="Colorlib" /> Colorlib</span>•
-                          <span className="mr-2">March 15, 2018 </span> •
-                        </div>
-                        <h2>How to Find the Video Games of Your Youth</h2>
-                      </div>
-                    </a>
-                  </div>
-                  <div className="col-md-6">
-                    <a href="blog-single.html" className="blog-entry element-animate fadeIn element-animated" data-animate-effect="fadeIn">
-                      <img src="images/img_9.jpg" alt="Image placeholder" />
-                      <div className="blog-content-body">
-                        <div className="post-meta">
-                          <span className="author mr-2"><img src="images/person_1.jpg" alt="Colorlib" /> Colorlib</span>•
-                          <span className="mr-2">March 15, 2018 </span> •
-                        </div>
-                        <h2>How to Find the Video Games of Your Youth</h2>
-                      </div>
-                    </a>
-                  </div>
-                  <div className="col-md-6">
-                    <a href="blog-single.html" className="blog-entry element-animate fadeIn element-animated" data-animate-effect="fadeIn">
-                      <img src="images/img_10.jpg" alt="Image placeholder" />
-                      <div className="blog-content-body">
-                        <div className="post-meta">
-                          <span className="author mr-2"><img src="images/person_1.jpg" alt="Colorlib" /> Colorlib</span>•
-                          <span className="mr-2">March 15, 2018 </span> •
-                        </div>
-                        <h2>How to Find the Video Games of Your Youth</h2>
-                      </div>
-                    </a>
-                  </div>
-                  <div className="col-md-6">
-                    <a href="blog-single.html" className="blog-entry element-animate fadeIn element-animated" data-animate-effect="fadeIn">
-                      <img src="images/img_11.jpg" alt="Image placeholder" />
-                      <div className="blog-content-body">
-                        <div className="post-meta">
-                          <span className="author mr-2"><img src="images/person_1.jpg" alt="Colorlib" /> Colorlib</span>•
-                          <span className="mr-2">March 15, 2018 </span> •
-                        </div>
-                        <h2>How to Find the Video Games of Your Youth</h2>
-                      </div>
-                    </a>
-                  </div>
-                  <div className="col-md-6">
-                    <a href="blog-single.html" className="blog-entry element-animate fadeIn element-animated" data-animate-effect="fadeIn">
-                      <img src="images/img_12.jpg" alt="Image placeholder" />
-                      <div className="blog-content-body">
-                        <div className="post-meta">
-                          <span className="author mr-2"><img src="images/person_1.jpg" alt="Colorlib" /> Colorlib</span>•
-                          <span className="mr-2">March 15, 2018 </span> •
-                        </div>
-                        <h2>How to Find the Video Games of Your Youth</h2>
-                      </div>
-                    </a>
-                  </div>
+                      <h2>{post.title}</h2>
+                    </div>
+                  </a>
+                </div>
+
+                )}
+                  
                 </div>
                 <div className="row mt-5">
                   <div className="col-md-12 text-center">

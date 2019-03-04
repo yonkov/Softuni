@@ -1,0 +1,17 @@
+<div class="spacer">
+    <h2>{{article.title}}
+        <div class="controls">
+            {{#if isAdmin}}
+            <a href="/article/edit/{{article._id}}">[edit]</a>
+            {{else}}
+            {{#unless article.lockedStatus}}
+            <a href="/article/edit/{{article._id}}">[edit]</a>
+            {{/unless}}
+            {{/if}}
+            <a href="/article/history/{{article._id}}">[history]</a>
+        </div>
+    </h2>
+    <article>
+        {{article.content}}
+    </article>
+</div>
