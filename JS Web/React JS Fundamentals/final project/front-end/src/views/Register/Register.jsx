@@ -5,6 +5,7 @@ class Register extends Component {
   constructor(props){
     super(props)
     this.state ={
+      userId: null,
       username:null,
       password: null
     }
@@ -14,7 +15,7 @@ class Register extends Component {
 
   render() {
     return (
-        <div className="text-center form">
+        <main className="text-center form">
         <form className="submit-form" onSubmit={(e)=>this.props.handleSubmit(e, this.state, true)}>
           <h1 className="h3 mb-3 font-weight-normal">Register</h1>
           <label htmlFor="inputUsername" className="sr-only">Username</label>
@@ -34,11 +35,9 @@ class Register extends Component {
           <span className="txt1">
             Already have an account? 
           </span>
-          <a href="/login" className="txt2">
-            Sign in
-          </a>
+          <a href="/login" className="txt2"> Sign in</a>
         </div>
-      </div>
+      </main>
     );
   }
 }

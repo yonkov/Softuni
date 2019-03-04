@@ -1,12 +1,12 @@
-const Movie = require('../models/Movie');
+const Post = require('../models/Post');
 
 module.exports = {
-  getMovies: (req, res) => {
-    Movie.find()
-      .then((movies) => {
+  getposts: (req, res) => {
+    Post.find()
+      .then((posts) => {
         res
           .status(200)
-          .json({ message: 'Fetched movies successfully.', movies });
+          .json({ message: 'Fetched posts successfully.', posts });
       })
       .catch((error) => {
         if (!error.statusCode) {
@@ -15,14 +15,14 @@ module.exports = {
         next(error);
       });
   },
-  createMovie: (req, res) => {
-    const movieObj = req.body;
-    Movie.create(movieObj)
-    .then((movie) => {
+  createPost: (req, res) => {
+    const PostObj = req.body;
+    Post.create(PostObj)
+    .then((Post) => {
       res.status(200)
         .json({
-          message: 'Movie created successfully!',
-          movie
+          message: 'Post created successfully!',
+          Post
         })
     })
     .catch((error) => {

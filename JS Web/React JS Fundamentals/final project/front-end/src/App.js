@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
-import {ToastContainer, toast} from 'react-toastify'
+import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
 import './public/css/Bootstrap-min.css';
 import './public/css/Animate.css';
@@ -19,50 +19,76 @@ import Home from './views/Home/Home';
 import Login from './views/Login/Login';
 import Register from './views/Register/Register';
 import About from './views/About/About';
+import Create from './views/Create/Create';
+import PrivateRoute from './components/PrivateRoute';
 
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      userId: null,
       username: null,
       isAdmin: false,
-      posts: []
+      isAuthed: false,
     }
+    this.logout = this.logout.bind(this);
+  }
+
+
+  componentWillMount() {
+    const isAdmin = localStorage.getItem('isAdmin') === "true"
+    const isAuthed = !!localStorage.getItem('username');
+
+    if (localStorage.getItem('username')) {
+      this.setState({
+        userId: localStorage.getItem('userId'),
+        username: localStorage.getItem('username'),
+        isAdmin,
+        isAuthed
+      })
+    }
+    
   }
 
   handleChange(e, data) {
     this.setState({
       [e.target.name]: e.target.value
     })
-
   }
 
   handleSubmit(e, data, isSignUp) {
 
-    
     e.preventDefault()
-    
-    
+
     fetch('http://localhost:9999/auth/sign' + (isSignUp ? 'up' : 'in'), {
       method: "POST",
-      body: JSON.stringify(data),
-      headers: { "Content-Type": "application/json" }
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
     })
       .then(
         rawData => rawData.json()
       )
       .then(
-        
+
         body => {
+          
           if (body.username) {
             this.setState({
+              userId: body.userId,
               username: body.username,
-              isAdmin: body.isAdmin
-            }) 
+              isAdmin: body.isAdmin,
+              isAuthed: !!body.username
+            })
+            console.log(this.state);
+            
+
+            localStorage.setItem('userId', body.userId)
             localStorage.setItem('username', body.username)
             localStorage.setItem('isAdmin', body.isAdmin)
-            toast.success('Welcome, ' + body.username); 
+            localStorage.setItem('isAuthed', !!body.username)
+            
+            toast.success('Welcome, ' + body.username);
             this.props.history.push('/')
           }
           else {
@@ -71,32 +97,91 @@ class App extends Component {
         }
       )
       .catch(error => console.error(error));
+  }
 
+  handleCreateSubmit(e, data) {
+    e.preventDefault();
+
+    fetch('http://localhost:9999/feed/post/create', {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: { "Content-Type": "application/json" }
+    })
+      .then(
+        rawData => rawData.json()
+      )
+      .then(
+
+        body => {
+          if (!body.errors) {
+            toast.success(body.message);
+
+          }
+          else {
+            toast.error(body.message);
+          }
+        }
+      )
+      .catch(error => console.error(error));
 
   }
 
+  logout() {
+
+    this.setState({
+      userId: null,
+      username: null,
+      isAdmin: false,
+      isAuthed: false,
+    })
+    localStorage.clear();
+  }
 
   render() {
     return (
       <Fragment>
         <ToastContainer />
-        <Header />
+        <Header username={this.state.username} isAdmin={this.state.isAdmin} isAuthed={this.state.isAuthed} logout={this.logout.bind(this)} />
+        
         <Switch>
+          
           <Route exact path="/" component={Home} />
-          <Route exact path="/login" render={(props) => <Login
+          
+          <Route path="/login"
+            render={() => 
+            this.state.isAuthed ? <Redirect to="/" /> 
+            :
+            <Login
               handleSubmit={this.handleSubmit.bind(this)}
               handleChange={this.handleChange}
               history={this.props.history} />} />
-          <Route exact path="/register" render={(props) => <Register
-              handleSubmit={this.handleSubmit.bind(this)}
+          
+          <Route path="/register"
+            render={() => 
+              this.state.isAuthed ? <Redirect to="/" /> 
+              :
+              <Register
+                handleSubmit={this.handleSubmit.bind(this)}
+                handleChange={this.handleChange}
+                history={this.props.history} />} />
+          
+          <Route path="/logout" render={() => {
+            return (<Redirect to="/login" />)}}/>;
+
+          <PrivateRoute path="/create" isAdmin={this.state.isAdmin} 
+          render={() =>
+            <Create handleSubmit={this.handleCreateSubmit.bind(this)}
               handleChange={this.handleChange}
               history={this.props.history} />} />
-          <Route exact path="/about" component={About} />
+
+          <Route path="/about" component={About} />
+        
         </Switch>
+        
         <Footer />
       </Fragment>
     );
   }
 }
 
-export default withRouter (App);
+export default withRouter(App);

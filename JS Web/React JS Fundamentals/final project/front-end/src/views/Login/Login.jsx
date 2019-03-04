@@ -5,8 +5,9 @@ class Login extends Component {
   constructor(props){
     super(props)
     this.state ={
+      userId: null,
       username:null,
-      password: null
+      password: null,
     }
     this.handleChange = props.handleChange.bind(this);
     
@@ -14,7 +15,7 @@ class Login extends Component {
 
   render() {
     return (
-        <div className="text-center form">
+        <main className="text-center form">
         <form className="submit-form" onSubmit={(e)=>this.props.handleSubmit(e, this.state, false)}>
           <h1 className="h3 mb-3 font-weight-normal">Log in</h1>
           <label htmlFor="inputUsername" className="sr-only">Username</label>
@@ -32,11 +33,9 @@ class Login extends Component {
           <span className="txt1">
             Don’t have an account? 
           </span>
-          <a href="/register" className="txt2">
-            Sign up
-          </a>
+          <a href="/register" className="txt2"> Sign up</a>
         </div>
-      </div>
+      </main>
     );
   }
 }

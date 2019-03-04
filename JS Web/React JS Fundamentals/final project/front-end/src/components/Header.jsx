@@ -1,7 +1,7 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-const Header =() =>{
-
+const Header =(props) =>{
+  const {isAdmin, isAuthed, logout } = props;
     return(
         <header role="banner">
         <div className="top-bar">
@@ -31,19 +31,20 @@ const Header =() =>{
             <div className="collapse navbar-collapse" id="navbarMenu">
               <ul className="navbar-nav mx-auto">
                 <li className="nav-item">
-                  <NavLink  className="nav-link active" to="/">Home</NavLink>
+                
+                  <NavLink  className="nav-link" to="/">Home</NavLink>
                 </li>
                 <li className="nav-item">
-                  <NavLink  className="nav-link" to="/login">Login</NavLink>
+                  {!isAuthed && <NavLink  className="nav-link" to="/login">Login</NavLink>}
                 </li>
                 <li className="nav-item">
-                  <NavLink  className="nav-link" to="/register">Register</NavLink>
+                  {!isAuthed && <NavLink  className="nav-link" to="/register">Register</NavLink>}
                 </li>
                 <li className="nav-item">
-                  <NavLink  className="nav-link" to="/logout">Logout</NavLink>
+                  {isAuthed && <NavLink  className="nav-link" to="/logout" onClick={logout}>Logout</NavLink>}
                 </li>
                 <li className="nav-item">
-                  <NavLink  className="nav-link" to="/create">Create</NavLink>
+                  {isAdmin && <NavLink  className="nav-link" to="/create">Create</NavLink>}
                 </li>
                 <li className="nav-item">
                   <NavLink  className="nav-link" to="/about">About</NavLink>

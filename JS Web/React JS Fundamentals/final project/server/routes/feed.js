@@ -2,7 +2,7 @@ const router = require('express').Router();
 const feedController = require('../controllers/feed');
 const isAuth = require('../middleware/is-auth');
 
-router.get('/movies', isAuth, feedController.getMovies);
-router.post('/movie/create', isAuth, feedController.createMovie);
+router.get('/posts', feedController.getposts);
+router.post('/post/create', feedController.createPost);
 
 module.exports = router;
