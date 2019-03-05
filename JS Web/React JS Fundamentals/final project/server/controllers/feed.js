@@ -4,6 +4,7 @@ module.exports = {
   getposts: (req, res) => {
     Post.find()
       .then((posts) => {
+        //posts.map
         res
           .status(200)
           .json({ message: 'Fetched posts successfully.', posts });

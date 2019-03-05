@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {NavLink} from 'react-router-dom'
 import Sidebar from '../../components/Sidebar';
 
 class Home extends Component {
@@ -19,7 +20,7 @@ class Home extends Component {
                 {/* Dynamic content here */}
                 {this.props.posts.map(post =>
                   <div className="col-md-6">
-                  <a href="blog-single.html" className="blog-entry element-animate fadeIn element-animated" data-animate-effect="fadeIn">
+                  <NavLink to={"/posts/"+post._id} className="blog-entry element-animate fadeIn element-animated" data-animate-effect="fadeIn">
                     <img src={post.imageUrl} alt="featured" />
                     <div className="blog-content-body">
                       <div className="post-meta">
@@ -28,7 +29,7 @@ class Home extends Component {
                       </div>
                       <h2>{post.title}</h2>
                     </div>
-                  </a>
+                  </NavLink>
                 </div>
 
                 )}

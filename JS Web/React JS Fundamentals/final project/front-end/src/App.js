@@ -20,6 +20,7 @@ import Login from './views/Login/Login';
 import Register from './views/Register/Register';
 import About from './views/About/About';
 import Create from './views/Create/Create';
+import Details from './views/Details/Details';
 import PrivateRoute from './components/PrivateRoute';
 
 
@@ -47,9 +48,9 @@ class App extends Component {
         isAuthed
       })
     }
-    
+
     this.getPosts()
-    
+
   }
 
   handleChange(e, data) {
@@ -73,7 +74,7 @@ class App extends Component {
       .then(
 
         body => {
-          
+
           if (body.username) {
             this.setState({
               userId: body.userId,
@@ -82,13 +83,13 @@ class App extends Component {
               isAuthed: !!body.username
             })
             console.log(this.state);
-            
+
 
             localStorage.setItem('userId', body.userId)
             localStorage.setItem('username', body.username)
             localStorage.setItem('isAdmin', body.isAdmin)
             localStorage.setItem('isAuthed', !!body.username)
-            
+
             toast.success('Welcome, ' + body.username);
             this.props.history.push('/')
           }
@@ -128,25 +129,25 @@ class App extends Component {
 
   }
 
-  getPosts(){
+  getPosts() {
     fetch('http://localhost:9999/feed/posts')
-    .then(rawData => rawData.json())
+      .then(rawData => rawData.json())
       .then(
-      body =>{
-        this.setState({
-          posts: body.posts
-        })
-        // if (!body.errors) {
-        //   toast.success(body.message);  
-        // }
-        // else{
-        //   toast.error(body.message);
-        // }      
-      }
+        body => {
+          this.setState({
+            posts: body.posts
+          })
+          // if (!body.errors) {
+          //   toast.success(body.message);  
+          // }
+          // else{
+          //   toast.error(body.message);
+          // }      
+        }
       )
-    .catch(error => console.error(error));
+      .catch(error => console.error(error));
   }
-  
+
 
   logout() {
 
@@ -165,44 +166,56 @@ class App extends Component {
       <Fragment>
         <ToastContainer />
         <Header username={this.state.username} isAdmin={this.state.isAdmin} isAuthed={this.state.isAuthed} logout={this.logout.bind(this)} />
-        
-        <Switch>
-          
-          <Route exact path="/" render={() =>
-            <Home 
-              posts={this.state.posts} />} />
-          
-          <Route path="/login" render={() => 
-              this.state.isAuthed ? 
-                <Redirect to="/" /> 
-                :
-                <Login
-                  handleSubmit={this.handleSubmit.bind(this)}
-                  handleChange={this.handleChange}
-                  history={this.props.history} />} />
-            
-          <Route path="/register" render={() => 
-              this.state.isAuthed ? 
-                <Redirect to="/" /> 
-                :
-                <Register
-                  handleSubmit={this.handleSubmit.bind(this)}
-                  handleChange={this.handleChange}
-                  history={this.props.history} />} />
-          
-          <Route path="/logout" render={() => {
-            return (<Redirect to="/login" />)}}/>;
 
-          <PrivateRoute path="/create" 
-            isAdmin={this.state.isAdmin} render={() =>
-            <Create handleSubmit={this.handleCreateSubmit.bind(this)}
-              handleChange={this.handleChange}
-              history={this.props.history} />} />
+        <Switch>
+
+          <Route exact path="/" render={(props) =>
+            <Home
+              posts={this.state.posts}
+              {...props} />} />
+
+          <Route path="/login" render={(props) =>
+            this.state.isAuthed ?
+              <Redirect to="/" />
+              :
+              <Login
+                handleSubmit={this.handleSubmit.bind(this)}
+                handleChange={this.handleChange}
+                history={this.props.history}
+                {...props} />} />
+
+          <Route path="/register" render={(props) =>
+            this.state.isAuthed ?
+              <Redirect to="/" />
+              :
+              <Register
+                handleSubmit={this.handleSubmit.bind(this)}
+                handleChange={this.handleChange}
+                history={this.props.history}
+                {...props} />} />
+
+          <Route path="/logout" render={(props) => {
+
+            return (<Redirect to="/login" />)
+          }} />;
+
+          <PrivateRoute path="/create"
+            isAdmin={this.state.isAdmin} render={(props) =>
+              <Create handleSubmit={this.handleCreateSubmit.bind(this)}
+                handleChange={this.handleChange}
+                history={this.props.history}
+                {...props} />} />
+
+          <Route exact path="/posts/:id" render={(props) =>
+            <Details
+              posts={this.state.posts}
+              {...props} />} />
 
           <Route path="/about" component={About} />
-        
+
+
         </Switch>
-        
+
         <Footer />
       </Fragment>
     );
