@@ -12,7 +12,7 @@ import './public/fonts/flaticon/font/flaticon.css';
 import './public/css/Style.css';
 import './public/css/Custom.css';
 
-
+import './services/authentication-service'
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './views/Home/Home';
@@ -24,6 +24,7 @@ import Details from './views/Details/Details';
 import PrivateRoute from './components/PrivateRoute';
 import Pagination from './components/Pagination';
 import Edit from './views/Edit/Edit';
+import { authenticateUser } from './services/authentication-service';
 
 
 class App extends Component {
@@ -37,27 +38,15 @@ class App extends Component {
       posts: [],
       page: 1,
     }
+    this.handleSubmit =this.handleSubmit.bind(this)
   }
 
-  componentWillMount() {
-    // const isAdmin = localStorage.getItem('isAdmin') === "true"
-    // const isAuthed = !!localStorage.getItem('username');
-
-    // if (localStorage.getItem('username')) {
-    //   this.setState({
-    //     userId: localStorage.getItem('userId'),
-    //     username: localStorage.getItem('username'),
-    //     isAdmin,
-    //     isAuthed
-    //   })
-    // }
-  }
 
   componentDidMount() {
     const isAdmin = localStorage.getItem('isAdmin') === "true"
     const isAuthed = !!localStorage.getItem('username');
 
-    if (localStorage.getItem('username')) {
+    if (isAuthed) {
       this.setState({
         userId: localStorage.getItem('userId'),
         username: localStorage.getItem('username'),
@@ -86,7 +75,6 @@ class App extends Component {
   }
 
 
-
   handleSubmit(e, data, isSignUp) {
 
     e.preventDefault()
@@ -110,7 +98,6 @@ class App extends Component {
               isAdmin: body.isAdmin,
               isAuthed: !!body.username
             })
-            console.log(this.state);
 
 
             localStorage.setItem('userId', body.userId)
@@ -127,6 +114,8 @@ class App extends Component {
         }
       )
       .catch(error => console.error(error));
+    authenticateUser(data, isSignUp)
+    this.props.history.push('/')
   }
 
   handleCreateSubmit(e, data) {
@@ -154,7 +143,6 @@ class App extends Component {
         }
       )
       .catch(error => console.error(error));
-
   }
 
   getPosts(page = 1, pageSize) {
@@ -241,6 +229,7 @@ class App extends Component {
 
           <Route exact path="/edit/:id" render={(props) =>
             <Edit
+              getPosts={this.getPosts(this.state.page, 2)}
               handleChange={this.handleChange}
               history={this.props.history}
               posts={this.state.posts}

@@ -8,7 +8,7 @@ module.exports = {
     Post.find()
       .limit(pageSize)
       .skip(pageSize * pageQuery)
-      .sort({ creationDate: -1 }) 
+      .sort({ creationDate: -1 })
       .then((posts) => {
         res
           .status(200)
@@ -39,46 +39,45 @@ module.exports = {
       });
   },
 
-    editGet:(req, res)=>{
-      const id = req.params.id
-      Post.findById(id).then((posts) => {
-        res
-          .status(200)
-          .json({ message: 'Fetched post successfully.', posts });
-      })
+  editGet: (req, res) => {
+    const id = req.params.id
+    Post.findById(id).then((posts) => {
+      res
+        .status(200)
+        .json({ message: 'Fetched post successfully.', posts });
+    })
       .catch((error) => {
         if (!error.statusCode) {
           error.statusCode = 500;
         }
         next(error);
       });
-    },
+  },
 
-    editPost:(req,res)=>{
-      const id = req.params.id;
-      const { title, imageUrl, content} = req.body;
-      
-      Post.findById(id).then((post)=>{
-        post.title = title;
-        post.content = content;
-        post.imageUrl = imageUrl;
-        
-        return post.save()
+  editPost: (req, res) => {
+    const id = req.params.id;
+    const { title, imageUrl, content } = req.body;
+
+    Post.findById(id).then((post) => {
+      post.title = title;
+      post.content = content;
+      post.imageUrl = imageUrl;
+
+      return post.save().then(() => {
+        res.status(200)
+          .json({
+            message: "Post edited!",
+            post
+          })
       })
-        .then (()=>{
-          res.status(200)
-        .json({
-          message:"Post edited!",
-          post
-        })
-        })
-        
-        .catch((error) => {
+    })
+
+      .catch((error) => {
         if (!error.statusCode) {
           error.statusCode = 500;
         }
 
       });
-    },
-      
+  },
+
 }

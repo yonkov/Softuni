@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Sidebar from '../../components/Sidebar';
 import { NavLink } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify'
 
 class Edit extends Component {
   constructor(props) {
@@ -16,6 +17,7 @@ class Edit extends Component {
   componentDidMount() {
     const { posts, match } = this.props;
     this.editGet();
+    this.props.getPosts();
 
   }
   
@@ -54,8 +56,8 @@ class Edit extends Component {
         body => {
           
           if (!body.errors) {
-            //toast.success(body.message);
-            console.log(body.message);    
+            toast.success(body.message);
+            this.props.history.push('/')    
           }
           else {
             console.log(body.message)
