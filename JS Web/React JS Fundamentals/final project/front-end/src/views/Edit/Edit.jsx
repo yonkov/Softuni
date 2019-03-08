@@ -17,7 +17,7 @@ class Edit extends Component {
   componentDidMount() {
     const { posts, match } = this.props;
     this.editGet();
-    this.props.getPosts();
+    
 
   }
   
@@ -57,6 +57,7 @@ class Edit extends Component {
           
           if (!body.errors) {
             toast.success(body.message);
+            console.log(body.message);
             this.props.history.push('/')    
           }
           else {

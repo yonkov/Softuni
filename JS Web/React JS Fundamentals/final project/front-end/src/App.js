@@ -158,10 +158,6 @@ class App extends Component {
       .catch(error => console.error(error));
   }
 
-  handleEditSubmit(e, data) {
-    e.preventDefault();
-
-  }
 
   logout() {
 
@@ -229,7 +225,7 @@ class App extends Component {
 
           <Route exact path="/edit/:id" render={(props) =>
             <Edit
-              getPosts={this.getPosts(this.state.page, 2)}
+            getPosts={this.getPosts(this.state.page, 2)}
               handleChange={this.handleChange}
               history={this.props.history}
               posts={this.state.posts}
