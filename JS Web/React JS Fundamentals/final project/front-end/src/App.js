@@ -22,6 +22,8 @@ import About from './views/About/About';
 import Create from './views/Create/Create';
 import Details from './views/Details/Details';
 import PrivateRoute from './components/PrivateRoute';
+import Pagination from './components/Pagination';
+import Edit from './views/Edit/Edit';
 
 
 class App extends Component {
@@ -32,11 +34,26 @@ class App extends Component {
       username: null,
       isAdmin: false,
       isAuthed: false,
-      posts: []
+      posts: [],
+      page: 1,
     }
   }
 
   componentWillMount() {
+    // const isAdmin = localStorage.getItem('isAdmin') === "true"
+    // const isAuthed = !!localStorage.getItem('username');
+
+    // if (localStorage.getItem('username')) {
+    //   this.setState({
+    //     userId: localStorage.getItem('userId'),
+    //     username: localStorage.getItem('username'),
+    //     isAdmin,
+    //     isAuthed
+    //   })
+    // }
+  }
+
+  componentDidMount() {
     const isAdmin = localStorage.getItem('isAdmin') === "true"
     const isAuthed = !!localStorage.getItem('username');
 
@@ -48,16 +65,27 @@ class App extends Component {
         isAuthed
       })
     }
-
-    this.getPosts()
-
+    this.getPosts(this.state.page, 2);
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.page !== this.state.page) {
+      this.getPosts(this.state.page, 2);
+    }
+  }
+
+  setNextPage = (nextPage) => {
+    this.setState({ page: nextPage });
+  };
+
   handleChange(e, data) {
+
     this.setState({
       [e.target.name]: e.target.value
     })
   }
+
+
 
   handleSubmit(e, data, isSignUp) {
 
@@ -129,25 +157,23 @@ class App extends Component {
 
   }
 
-  getPosts() {
-    fetch('http://localhost:9999/feed/posts')
+  getPosts(page = 1, pageSize) {
+    fetch(`http://localhost:9999/feed/posts?page=${page}&pageSize=${pageSize}`)
       .then(rawData => rawData.json())
       .then(
         body => {
           this.setState({
             posts: body.posts
           })
-          // if (!body.errors) {
-          //   toast.success(body.message);  
-          // }
-          // else{
-          //   toast.error(body.message);
-          // }      
         }
       )
       .catch(error => console.error(error));
   }
 
+  handleEditSubmit(e, data) {
+    e.preventDefault();
+
+  }
 
   logout() {
 
@@ -169,10 +195,12 @@ class App extends Component {
 
         <Switch>
 
-          <Route exact path="/" render={(props) =>
-            <Home
-              posts={this.state.posts}
-              {...props} />} />
+          <Route exact path="/" render={(props) => (
+            <React.Fragment>
+              <Home posts={this.state.posts} {...props} />
+              <Pagination page={this.state.page} setNextPage={this.setNextPage} />
+            </React.Fragment>
+          )} />
 
           <Route path="/login" render={(props) =>
             this.state.isAuthed ?
@@ -211,10 +239,16 @@ class App extends Component {
               posts={this.state.posts}
               {...props} />} />
 
+          <Route exact path="/edit/:id" render={(props) =>
+            <Edit
+              handleChange={this.handleChange}
+              history={this.props.history}
+              posts={this.state.posts}
+              {...props} />} />
+
           <Route path="/about" component={About} />
-
-
         </Switch>
+
 
         <Footer />
       </Fragment>

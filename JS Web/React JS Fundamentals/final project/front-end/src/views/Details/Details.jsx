@@ -1,25 +1,59 @@
 import React, { Component } from 'react';
 import Sidebar from '../../components/Sidebar';
+import { NavLink } from 'react-router-dom'
 
 class Details extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      post: props.posts.find(p => p._id === this.props.match.params.id) 
+      post: null
     }
   }
+
+  componentDidMount() {
+    const { posts, match } = this.props;
+
+    this.setState({
+      post: posts.length 
+        ? posts.find(p => p._id === match.params.id) 
+        : null
+    })
+  }
+
+  componentDidUpdate(prevProps) {
+    const { posts, match } = this.props;
+
+    if (JSON.stringify(prevProps) === JSON.stringify(this.props)) {
+      return;
+    }
+
+    this.setState({
+      post: posts.length 
+        ? posts.find(p => p._id === match.params.id) 
+        : null
+    });
+  }
+
   render() {
+    const { post } = this.state;
+
+    if (!post) {
+      return <span>Loading post ...</span>;
+    }
+
     return (
       <section className="site-section py-lg">
       <div className="container">
         <div className="row blog-entries">
           <div className="col-md-12 col-lg-8 main-content">
-            <img src={this.state.post.imageUrl} alt="Image" className="img-fluid mb-5" />
+            <img src={post.imageUrl} alt="Image" className="img-fluid mb-5" />
             <div className="post-meta">
               <span className="author mr-2"><img src="images/person_1.jpg" alt="Colorlib" className="mr-2" /> Colorlib</span>•
               <span className="mr-2">{this.state.post.creationDate} </span> •
               <span className="ml-2"><span className="fa fa-comments" /> 3</span>
             </div>
+            <NavLink to={"/edit/" + this.props.match.params.id}>edit post </NavLink>
+                <NavLink to={"/delete/" + this.props.match.params.id}>delete post</NavLink>
             <h1 className="mb-4">{this.state.post.title}</h1>
             <div className="post-content-body">
               <p>{this.state.post.author}</p>
