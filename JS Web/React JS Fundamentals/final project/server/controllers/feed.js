@@ -2,14 +2,13 @@ const Post = require('../models/Post');
 
 module.exports = {
   getposts: (req, res, next) => {
-    const pageSize = parseInt(req.query.pageSize, 10) || 1;
-    const pageQuery = parseInt(req.query.page, 10) || 1;
 
     Post.find()
-      .limit(pageSize)
-      .skip(pageSize * pageQuery)
+      .limit(4)
       .sort({ creationDate: -1 })
+      .populate('author', 'username')
       .then((posts) => {
+        
         res
           .status(200)
           .json({ message: 'Fetched posts successfully.', posts });
@@ -21,7 +20,7 @@ module.exports = {
         next(error);
       });
   },
-  createPost: (req, res) => {
+  createPost: (req, res, next) => {
     const PostObj = req.body;
     Post.create(PostObj)
       .then((Post) => {
@@ -39,13 +38,14 @@ module.exports = {
       });
   },
 
-  editGet: (req, res) => {
+  editGet: (req, res, next) => {
     const id = req.params.id
-    Post.findById(id).then((posts) => {
-      res
-        .status(200)
-        .json({ message: 'Fetched post successfully.', posts });
-    })
+    Post.findById(id)
+      .then((post) => {
+        res
+          .status(200)
+          .json({ message: 'Fetched post successfully.', post });
+      })
       .catch((error) => {
         if (!error.statusCode) {
           error.statusCode = 500;
@@ -58,20 +58,55 @@ module.exports = {
     const id = req.params.id;
     const { title, imageUrl, content } = req.body;
 
-    Post.findById(id).then((post) => {
-      post.title = title;
-      post.content = content;
-      post.imageUrl = imageUrl;
+    Post.findById(id)
+      .then((post) => {
+        post.title = title;
+        post.content = content;
+        post.imageUrl = imageUrl;
 
-      return post.save().then(() => {
+        return post.save().then(() => {
+          res.status(200)
+            .json({
+              message: "Post edited!",
+              post
+            })
+        })
+      })
+
+      .catch((error) => {
+        if (!error.statusCode) {
+          error.statusCode = 500;
+        }
+
+      });
+  },
+
+  deleteGet: (req, res, next) => {
+    const id = req.params.id
+    Post.findById(id)
+      .then((post) => {
+        res
+          .status(200)
+          .json({ message: 'Fetched post successfully.', post })
+      })
+      .catch((error) => {
+        if (!error.statusCode) {
+          error.statusCode = 500;
+        }
+        next(error);
+      });
+  },
+
+  deletePost: (req, res) => {
+    const id = req.params.id;
+    Post.findByIdAndDelete(id)
+      .then(
         res.status(200)
           .json({
-            message: "Post edited!",
-            post
+            message: "Post deleted!",
+            id
           })
-      })
-    })
-
+      )
       .catch((error) => {
         if (!error.statusCode) {
           error.statusCode = 500;

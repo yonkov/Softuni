@@ -21,7 +21,7 @@ class Details extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { posts, match } = this.props;
+    const { posts, match, isAdmin } = this.props;
 
     if (JSON.stringify(prevProps) === JSON.stringify(this.props)) {
       return;
@@ -36,6 +36,9 @@ class Details extends Component {
 
   render() {
     const { post } = this.state;
+    const {isAdmin} = this.props
+    console.log(isAdmin);
+    
 
     if (!post) {
       return <span>Loading post ...</span>;
@@ -46,17 +49,16 @@ class Details extends Component {
       <div className="container">
         <div className="row blog-entries">
           <div className="col-md-12 col-lg-8 main-content">
-            <img src={post.imageUrl} alt="Image" className="img-fluid mb-5" />
+            <img src={post.imageUrl} alt="image placeholder" className="img-fluid mb-5" />
             <div className="post-meta">
-              <span className="author mr-2"><img src="images/person_1.jpg" alt="Colorlib" className="mr-2" /> Colorlib</span>•
+              <span className="author mr-2"><img src="/images/atanas-yonkov.jpg" alt="pic" className="mr-2" />{post.author.username}</span>•
               <span className="mr-2">{this.state.post.creationDate} </span> •
               <span className="ml-2"><span className="fa fa-comments" /> 3</span>
             </div>
-            <NavLink to={"/edit/" + this.props.match.params.id}>edit post </NavLink>
-                <NavLink to={"/delete/" + this.props.match.params.id}>delete post</NavLink>
+              {isAdmin && <NavLink to={isAdmin && "/edit/" + this.props.match.params.id}>edit post </NavLink>}
+              {isAdmin && <NavLink to={"/delete/" + this.props.match.params.id}>delete post</NavLink>}
             <h1 className="mb-4">{this.state.post.title}</h1>
             <div className="post-content-body">
-              <p>{this.state.post.author}</p>
               <div className="row mb-5">  
               </div>
               <p>{this.state.post.content}</p>

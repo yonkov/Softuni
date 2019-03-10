@@ -21,7 +21,7 @@ const Footer =() =>{
                   <div className="post-entry-sidebar">
                     <ul>
                       <li>
-                        <a href>
+                        <a href=''>
                           <img src="images/img_6.jpg" alt="placeholder" className="mr-4" />
                           <div className="text">
                             <h4>How to Find the Video Games of Your Youth</h4>
@@ -32,7 +32,7 @@ const Footer =() =>{
                         </a>
                       </li>
                       <li>
-                        <a href>
+                        <a href=''>
                           <img src="images/img_3.jpg" alt="placeholder" className="mr-4" />
                           <div className="text">
                             <h4>How to Find the Video Games of Your Youth</h4>
@@ -43,7 +43,7 @@ const Footer =() =>{
                         </a>
                       </li>
                       <li>
-                        <a href>
+                        <a href=''>
                           <img src="images/img_4.jpg" alt="placeholder" className="mr-4" />
                           <div className="text">
                             <h4>How to Find the Video Games of Your Youth</h4>

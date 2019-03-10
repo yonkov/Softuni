@@ -1,14 +1,15 @@
 import React from 'react';
 
-const Sidebar = () => {
-
+const Sidebar = (props) => {
+    
     return (
         <div className="col-md-12 col-lg-4 sidebar">
             <div className="sidebar-box search-form-wrap">
-                <form action="#" className="search-form">
+                <form className="search-form">
                     <div className="form-group">
                         <span className="icon fa fa-search" />
-                        <input type="text" className="form-control" id="s" placeholder="Search.." />
+                        <input type="text" className="form-control" onChange={props.handleChange}  name="search" id="s" placeholder="Search.." />
+
                     </div>
                 </form>
             </div>
@@ -36,7 +37,7 @@ const Sidebar = () => {
                 <div className="post-entry-sidebar">
                     <ul>
                         <li>
-                            <a href>
+                            <a href=''>
                                 <img src="images/img_2.jpg" alt="Image placeholder" className="mr-4" />
                                 <div className="text">
                                     <h4>How to Find the Video Games of Your Youth</h4>
@@ -47,7 +48,7 @@ const Sidebar = () => {
                             </a>
                         </li>
                         <li>
-                            <a href>
+                            <a href=''>
                                 <img src="images/img_4.jpg" alt="Image placeholder" className="mr-4" />
                                 <div className="text">
                                     <h4>How to Find the Video Games of Your Youth</h4>
@@ -58,7 +59,7 @@ const Sidebar = () => {
                             </a>
                         </li>
                         <li>
-                            <a href>
+                            <a href=''>
                                 <img src="images/img_12.jpg" alt="Image placeholder" className="mr-4" />
                                 <div className="text">
                                     <h4>How to Find the Video Games of Your Youth</h4>

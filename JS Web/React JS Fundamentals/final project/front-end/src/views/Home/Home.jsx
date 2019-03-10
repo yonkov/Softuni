@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom'
 import Sidebar from '../../components/Sidebar';
-import Pagination from "../../components/Pagination";
 
 class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      activePage: 4
     };
   }
 
@@ -23,10 +21,6 @@ class Home extends Component {
     return [year, month, day].join('-');
 }
 
-  handlePageChange(pageNumber) {
-    console.log(`active page is ${pageNumber}`);
-    this.setState({ activePage: pageNumber });
-  }
 
   render() {
     
@@ -36,6 +30,7 @@ class Home extends Component {
         <section className="site-section py-sm">
           <div className="container">
             <div className="row">
+            
               <div className="col-md-6">
                 <h2 className="mb-4">Latest Posts</h2>
               </div>
@@ -45,12 +40,12 @@ class Home extends Component {
                 <div className="row">
                   {/* Dynamic content here */}
                   {this.props.posts.map(post =>
-                    <div className="col-md-6">
+                    <div key={post._id} className="col-md-6">
                       <NavLink to={"/posts/" + post._id} className="blog-entry element-animate fadeIn element-animated" data-animate-effect="fadeIn">
                         <img src={post.imageUrl} alt="featured" />
                         <div className="blog-content-body">
                           <div className="post-meta">
-                            <span className="author mr-2"><img src="images/atanas-yonkov.jpg" alt="author" /> {post.author}</span>•
+                            <span className="author mr-2"><img src="images/atanas-yonkov.jpg" alt="author" /> {post.author.username}</span>•
                         <span className="mr-2">{this.formatDate(post.creationDate)} </span>
                           </div>
                           <h2>{post.title}</h2>
@@ -80,7 +75,7 @@ class Home extends Component {
               {/* END of main-content */}
 
               {/* Show Sidebar */}
-              <Sidebar />
+              <Sidebar posts={this.props.posts} handleChange={this.props.handleChange}/>
             </div>
           </div>
         </section>
@@ -88,20 +83,6 @@ class Home extends Component {
     );
   }
 
-  componentDidMount() {
-    const { page } = this.props;
-
-    //this.getStarWarsPeople(page);
-}
-
-componentDidUpdate(prevProps, prevState) {
-    const { page: currentPage } = this.props;
-    const { page: lastPage } = prevProps;
-
-    if (currentPage !== lastPage) {
-        //this.getStarWarsPeople(currentPage);
-    }
-}
 }
 
 export default Home;

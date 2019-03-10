@@ -1,16 +1,7 @@
 import React, { Component, Fragment } from 'react';
-import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
+import { Route, Switch, Redirect, withRouter, } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
-import './public/css/Bootstrap-min.css';
-import './public/css/Animate.css';
-import './public/css/Owl.carousel.min.css';
-import './public/css/Owl.carousel.min.css';
-import './public/fonts/ionicons/css/ionicons.min.css';
-import './public/fonts/fontawesome/css/font-awesome.min.css';
-import './public/fonts/flaticon/font/flaticon.css';
-import './public/css/Style.css';
-import './public/css/Custom.css';
 
 import './services/authentication-service'
 import Header from './components/Header';
@@ -22,9 +13,10 @@ import About from './views/About/About';
 import Create from './views/Create/Create';
 import Details from './views/Details/Details';
 import PrivateRoute from './components/PrivateRoute';
-import Pagination from './components/Pagination';
 import Edit from './views/Edit/Edit';
 import { authenticateUser } from './services/authentication-service';
+import Delete from './views/Delete/Delete';
+import Sidebar from './components/Sidebar';
 
 
 class App extends Component {
@@ -36,9 +28,9 @@ class App extends Component {
       isAdmin: false,
       isAuthed: false,
       posts: [],
-      page: 1,
+      filtered:[]
     }
-    this.handleSubmit =this.handleSubmit.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
 
@@ -51,21 +43,20 @@ class App extends Component {
         userId: localStorage.getItem('userId'),
         username: localStorage.getItem('username'),
         isAdmin,
-        isAuthed
+        isAuthed,
       })
     }
-    this.getPosts(this.state.page, 2);
+    this.getPosts();
+
+ 
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.page !== this.state.page) {
-      this.getPosts(this.state.page, 2);
+    if (prevState== this.state) {
+      this.getPosts();
     }
   }
 
-  setNextPage = (nextPage) => {
-    this.setState({ page: nextPage });
-  };
 
   handleChange(e, data) {
 
@@ -74,6 +65,20 @@ class App extends Component {
     })
   }
 
+  handleSearchChange(e, data){
+
+    let posts =this.state.posts;
+    let searchedText = [];
+    let filteredPosts = [];
+    if (e.target.value) {
+      searchedText = e.target.value
+      filteredPosts = posts.filter(p=>p.title.toLowerCase().includes(searchedText))
+      this.setState({
+        posts: filteredPosts
+      })
+    }
+    
+  }
 
   handleSubmit(e, data, isSignUp) {
 
@@ -145,11 +150,13 @@ class App extends Component {
       .catch(error => console.error(error));
   }
 
-  getPosts(page = 1, pageSize) {
-    fetch(`http://localhost:9999/feed/posts?page=${page}&pageSize=${pageSize}`)
+  getPosts() {
+    fetch('http://localhost:9999/feed/posts')
       .then(rawData => rawData.json())
       .then(
+        
         body => {
+          console.log(body);
           this.setState({
             posts: body.posts
           })
@@ -157,7 +164,6 @@ class App extends Component {
       )
       .catch(error => console.error(error));
   }
-
 
   logout() {
 
@@ -180,10 +186,9 @@ class App extends Component {
         <Switch>
 
           <Route exact path="/" render={(props) => (
-            <React.Fragment>
-              <Home posts={this.state.posts} {...props} />
-              <Pagination page={this.state.page} setNextPage={this.setNextPage} />
-            </React.Fragment>
+              <Home posts={this.state.posts} 
+              handleChange={this.handleSearchChange.bind(this)} 
+              {...props} />
           )} />
 
           <Route path="/login" render={(props) =>
@@ -220,15 +225,23 @@ class App extends Component {
 
           <Route exact path="/posts/:id" render={(props) =>
             <Details
+              isAdmin={this.state.isAdmin}
               posts={this.state.posts}
               {...props} />} />
 
-          <Route exact path="/edit/:id" render={(props) =>
+          <PrivateRoute exact path="/edit/:id" 
+            isAdmin={this.state.isAdmin} render={(props) =>
             <Edit
-            getPosts={this.getPosts(this.state.page, 2)}
+              getPosts = {this.getPosts.bind(this)}              
               handleChange={this.handleChange}
               history={this.props.history}
-              posts={this.state.posts}
+              {...props} />} />
+
+          <PrivateRoute exact path="/delete/:id" 
+          isAdmin={this.state.isAdmin} render={(props) =>
+            <Delete
+              handleChange={this.handleChange}
+              history={this.props.history}
               {...props} />} />
 
           <Route path="/about" component={About} />

@@ -7,15 +7,13 @@
   var loader = function() {
     setTimeout(function() { 
       if($('#loader').length > 0) {
-        $('#loader').removeClass('show');
+				$('#loader').removeClass('show');
+				
       }
     }, 1);
   };
-
-
   // Stellar
 
-	
 	$('nav .dropdown').hover(function(){
 		var $this = $(this);
 		$this.addClass('show');
