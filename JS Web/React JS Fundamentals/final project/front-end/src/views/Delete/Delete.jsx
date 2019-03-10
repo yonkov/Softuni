@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import Sidebar from '../../components/Sidebar';
-import { NavLink } from 'react-router-dom'
-import { ToastContainer, toast } from 'react-toastify'
+import { toast } from 'react-toastify'
 
 class Delete extends Component {
   constructor(props) {

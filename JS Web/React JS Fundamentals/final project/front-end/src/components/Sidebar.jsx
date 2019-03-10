@@ -19,8 +19,7 @@ const Sidebar = (props) => {
                     <img src="images/atanas-yonkov.jpg" alt="Image Placeholder" className="img-fluid" />
                     <div className="bio-body">
                         <h2>Atanas Yonkov</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem facilis sunt repellendus
-                        excepturi beatae porro debitis voluptate nulla quo veniam fuga sit molestias minus.</p>
+                        <p>Hi, my name is Atanas Yonkov. I am a blogger, web developer and React enthusiast. In this blog you can find up-to-date and useful information about our favourite JS framework!</p>
                         <p><a href="#" className="btn btn-primary btn-sm rounded">Read my bio</a></p>
                         <p className="social">
                             <a href="#" className="p-2"><span className="fa fa-facebook" /></a>

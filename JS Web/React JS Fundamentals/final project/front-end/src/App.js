@@ -17,6 +17,7 @@ import Edit from './views/Edit/Edit';
 import { authenticateUser } from './services/authentication-service';
 import Delete from './views/Delete/Delete';
 import Sidebar from './components/Sidebar';
+import AllPosts from './views/All/All';
 
 
 class App extends Component {
@@ -245,6 +246,12 @@ class App extends Component {
               {...props} />} />
 
           <Route path="/about" component={About} />
+
+          <Route exact path="/all" render={(props) => (
+              <AllPosts posts={this.state.posts} 
+              handleChange={this.handleSearchChange.bind(this)} 
+              {...props} />
+          )} />
         </Switch>
 
 
