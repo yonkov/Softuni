@@ -4,7 +4,6 @@ module.exports = {
   getposts: (req, res, next) => {
 
     Post.find()
-      .limit(4)
       .sort({ creationDate: -1 })
       .populate('author', 'username')
       .then((posts) => {

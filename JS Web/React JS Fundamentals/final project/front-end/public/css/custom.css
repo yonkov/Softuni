@@ -101,3 +101,13 @@ body {
   background-repeat: no-repeat;
 
 }
+
+.post-entry-horzontal {
+  border: 1px solid #e6e6e6;
+  
+}
+
+.post-entry-horzontal:hover{
+  -webkit-box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.1);
+}

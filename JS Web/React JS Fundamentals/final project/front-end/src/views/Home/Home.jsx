@@ -39,7 +39,7 @@ class Home extends Component {
               <div className="col-md-12 col-lg-8 main-content">
                 <div className="row">
                   {/* Dynamic content here */}
-                  {this.props.posts.map(post =>
+                  {this.props.posts.slice(0,4).map(post =>
                     <div key={post._id} className="col-md-6">
                       <NavLink to={"/posts/" + post._id} className="blog-entry element-animate fadeIn element-animated" data-animate-effect="fadeIn">
                         <img src={post.imageUrl} alt="featured" />
