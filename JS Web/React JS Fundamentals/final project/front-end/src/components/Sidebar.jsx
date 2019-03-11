@@ -1,19 +1,20 @@
 import React from 'react';
+import SidebarWidget from './SidebarWidget';
 
 const Sidebar = (props) => {
     
     return (
         <div className="col-md-12 col-lg-4 sidebar">
             <div className="sidebar-box search-form-wrap">
+                {/* Search*/}
                 <form className="search-form">
                     <div className="form-group">
                         <span className="icon fa fa-search" />
                         <input type="text" className="form-control" onChange={props.handleChange}  name="search" id="s" placeholder="Search.." />
-
                     </div>
                 </form>
             </div>
-            {/* END sidebar-box */}
+            {/* Sidebar-box */}
             <div className="sidebar-box">
                 <div className="bio text-center">
                     <img src="images/atanas-yonkov.jpg" alt="Image Placeholder" className="img-fluid" />
@@ -31,47 +32,8 @@ const Sidebar = (props) => {
                 </div>
             </div>
             {/* END sidebar-box */}
-            <div className="sidebar-box">
-                <h3 className="heading">Popular Posts</h3>
-                <div className="post-entry-sidebar">
-                    <ul>
-                        <li>
-                            <a href=''>
-                                <img src="images/img_2.jpg" alt="Image placeholder" className="mr-4" />
-                                <div className="text">
-                                    <h4>How to Find the Video Games of Your Youth</h4>
-                                    <div className="post-meta">
-                                        <span className="mr-2">March 15, 2018 </span>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href=''>
-                                <img src="images/img_4.jpg" alt="Image placeholder" className="mr-4" />
-                                <div className="text">
-                                    <h4>How to Find the Video Games of Your Youth</h4>
-                                    <div className="post-meta">
-                                        <span className="mr-2">March 15, 2018 </span>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href=''>
-                                <img src="images/img_12.jpg" alt="Image placeholder" className="mr-4" />
-                                <div className="text">
-                                    <h4>How to Find the Video Games of Your Youth</h4>
-                                    <div className="post-meta">
-                                        <span className="mr-2">March 15, 2018 </span>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            {/* END sidebar-box */}
+            {/*LatestPosts widget*/}
+            <SidebarWidget {...props} formatDate={props.formatDate} />
         </div>
         );
 };

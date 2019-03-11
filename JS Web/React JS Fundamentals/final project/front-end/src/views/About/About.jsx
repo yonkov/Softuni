@@ -1,8 +1,8 @@
 import React from 'react'
 import Sidebar from '../../components/Sidebar';
 
-const About =() =>{
-
+const About =(props) =>{
+  
     return(
         <section className="site-section pt-5">
         <div className="container">
@@ -29,148 +29,10 @@ const About =() =>{
                     possimus ut voluptatum.</p>
                 </div>
               </div>
-              <div className="row mb-5 mt-5">
-                <div className="col-md-12 mb-5">
-                  <h2>My Latest Posts</h2>
-                </div>
-                <div className="col-md-12">
-                  <div className="post-entry-horzontal">
-                    <a href="blog-single.html">
-                      <div className="image" style={{backgroundImage: 'url(images/img_10.jpg)'}} />
-                      <span className="text">
-                        <div className="post-meta">
-                          <span className="author mr-2"><img src="images/person_1.jpg" alt="Colorlib" /> Colorlib</span>•
-                          <span className="mr-2">March 15, 2018 </span> •
-                        </div>
-                        <h2>There’s a Cool New Way for Men to Wear Socks and Sandals</h2>
-                      </span>
-                    </a>
-                  </div>
-                  {/* END post */}
-                  <div className="post-entry-horzontal">
-                    <a href="blog-single.html">
-                      <div className="image" style={{backgroundImage: 'url(images/img_11.jpg)'}} />
-                      <span className="text">
-                        <div className="post-meta">
-                          <span className="author mr-2"><img src="images/person_1.jpg" alt="Colorlib" /> Colorlib</span>•
-                          <span className="mr-2">March 15, 2018 </span> •
-                        </div>
-                        <h2>There’s a Cool New Way for Men to Wear Socks and Sandals</h2>
-                      </span>
-                    </a>
-                  </div>
-                  {/* END post */}
-                  <div className="post-entry-horzontal">
-                    <a href="blog-single.html">
-                      <div className="image" style={{backgroundImage: 'url(images/img_12.jpg)'}} />
-                      <span className="text">
-                        <div className="post-meta">
-                          <span className="author mr-2"><img src="images/person_1.jpg" alt="Colorlib" /> Colorlib</span>•
-                          <span className="mr-2">March 15, 2018 </span> •
-                        </div>
-                        <h2>There’s a Cool New Way for Men to Wear Socks and Sandals</h2>
-                      </span>
-                    </a>
-                  </div>
-                  {/* END post */}
-                  <div className="post-entry-horzontal">
-                    <a href="blog-single.html">
-                      <div className="image" style={{backgroundImage: 'url(images/img_9.jpg)'}} />
-                      <span className="text">
-                        <div className="post-meta">
-                          <span className="author mr-2"><img src="images/person_1.jpg" alt="Colorlib" /> Colorlib</span>•
-                          <span className="mr-2">March 15, 2018 </span> •
-                        </div>
-                        <h2>There’s a Cool New Way for Men to Wear Socks and Sandals</h2>
-                      </span>
-                    </a>
-                  </div>
-                  {/* END post */}
-                  <div className="post-entry-horzontal">
-                    <a href="blog-single.html">
-                      <div className="image" style={{backgroundImage: 'url(images/img_8.jpg)'}} />
-                      <span className="text">
-                        <div className="post-meta">
-                          <span className="author mr-2"><img src="images/person_1.jpg" alt="Colorlib" /> Colorlib</span>•
-                          <span className="mr-2">March 15, 2018 </span> •
-                        </div>
-                        <h2>There’s a Cool New Way for Men to Wear Socks and Sandals</h2>
-                      </span>
-                    </a>
-                  </div>
-                  {/* END post */}
-                  <div className="post-entry-horzontal">
-                    <a href="blog-single.html">
-                      <div className="image" style={{backgroundImage: 'url(images/img_7.jpg)'}} />
-                      <span className="text">
-                        <div className="post-meta">
-                          <span className="author mr-2"><img src="images/person_1.jpg" alt="Colorlib" /> Colorlib</span>•
-                          <span className="mr-2">March 15, 2018 </span> •
-                        </div>
-                        <h2>There’s a Cool New Way for Men to Wear Socks and Sandals</h2>
-                      </span>
-                    </a>
-                  </div>
-                  {/* END post */}
-                  <div className="post-entry-horzontal">
-                    <a href="blog-single.html">
-                      <div className="image" style={{backgroundImage: 'url(images/img_6.jpg)'}} />
-                      <span className="text">
-                        <div className="post-meta">
-                          <span className="author mr-2"><img src="images/person_1.jpg" alt="Colorlib" /> Colorlib</span>•
-                          <span className="mr-2">March 15, 2018 </span> •
-                        </div>
-                        <h2>There’s a Cool New Way for Men to Wear Socks and Sandals</h2>
-                      </span>
-                    </a>
-                  </div>
-                  {/* END post */}
-                  <div className="post-entry-horzontal">
-                    <a href="blog-single.html">
-                      <div className="image" style={{backgroundImage: 'url(images/img_5.jpg)'}} />
-                      <span className="text">
-                        <div className="post-meta">
-                          <span className="author mr-2"><img src="images/person_1.jpg" alt="Colorlib" /> Colorlib</span>•
-                          <span className="mr-2">March 15, 2018 </span> •
-                        </div>
-                        <h2>There’s a Cool New Way for Men to Wear Socks and Sandals</h2>
-                      </span>
-                    </a>
-                  </div>
-                  {/* END post */}
-                  <div className="post-entry-horzontal">
-                    <a href="blog-single.html">
-                      <div className="image" style={{backgroundImage: 'url(images/img_4.jpg)'}} />
-                      <span className="text">
-                        <div className="post-meta">
-                          <span className="author mr-2"><img src="images/person_1.jpg" alt="Colorlib" /> Colorlib</span>•
-                          <span className="mr-2">March 15, 2018 </span> •
-                        </div>
-                        <h2>There’s a Cool New Way for Men to Wear Socks and Sandals</h2>
-                      </span>
-                    </a>
-                  </div>
-                  {/* END post */}
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-md-12 text-center">
-                  <nav aria-label="Page navigation" className="text-center">
-                    <ul className="pagination">
-                      <li className="page-item  active"><a className="page-link" href="#">&lt;</a></li>
-                      <li className="page-item"><a className="page-link" href="#">1</a></li>
-                      <li className="page-item"><a className="page-link" href="#">2</a></li>
-                      <li className="page-item"><a className="page-link" href="#">3</a></li>
-                      <li className="page-item"><a className="page-link" href="#">4</a></li>
-                      <li className="page-item"><a className="page-link" href="#">5</a></li>
-                      <li className="page-item"><a className="page-link" href="#">&gt;</a></li>
-                    </ul>
-                  </nav>
-                </div>
-              </div>
+              
             </div>
             {/* END main-content */}
-            <Sidebar />
+            <Sidebar {...props} />
           </div>
         </div>
       </section>

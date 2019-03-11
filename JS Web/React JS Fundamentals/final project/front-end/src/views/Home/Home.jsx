@@ -9,19 +9,6 @@ class Home extends Component {
     };
   }
 
-   formatDate(date) {
-    var d = new Date(date),
-        month = '' + (d.getMonth() + 1),
-        day = '' + d.getDate(),
-        year = d.getFullYear();
-
-    if (month.length < 2) month = '0' + month;
-    if (day.length < 2) day = '0' + day;
-
-    return [year, month, day].join('-');
-}
-
-
   render() {
     
     return (
@@ -46,7 +33,7 @@ class Home extends Component {
                         <div className="blog-content-body">
                           <div className="post-meta">
                             <span className="author mr-2"><img src="images/atanas-yonkov.jpg" alt="author" /> {post.author.username}</span>•
-                        <span className="mr-2">{this.formatDate(post.creationDate)} </span>
+                        <span className="mr-2">{this.props.formatDate(post.creationDate)} </span>
                           </div>
                           <h2>{post.title}</h2>
                         </div>
@@ -75,7 +62,9 @@ class Home extends Component {
               {/* END of main-content */}
 
               {/* Show Sidebar */}
-              <Sidebar posts={this.props.posts} handleChange={this.props.handleChange}/>
+              <Sidebar posts={this.props.posts} 
+                handleChange={this.props.handleChange} 
+                formatDate={this.props.formatDate}/>
             </div>
           </div>
         </section>

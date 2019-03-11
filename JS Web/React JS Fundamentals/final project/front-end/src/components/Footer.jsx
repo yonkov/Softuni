@@ -1,6 +1,7 @@
 import React from 'react'
+import FooterWidget from './FooterWidget';
 
-const Footer =() =>{
+const Footer =(props) =>{
 
     return(
         <footer className="site-footer">
@@ -16,50 +17,11 @@ const Footer =() =>{
             </div>
             <div className="col-md-6 ml-auto">
               <div className="row">
-                <div className="col-md-7">
-                  <h3>Latest Posts</h3>
-                  <div className="post-entry-sidebar">
-                    <ul>
-                      <li>
-                        <a href=''>
-                          <img src="images/img_6.jpg" alt="placeholder" className="mr-4" />
-                          <div className="text">
-                            <h4>How to Find the Video Games of Your Youth</h4>
-                            <div className="post-meta">
-                              <span className="mr-2">March 15, 2018 </span> •
-                            </div>
-                          </div>
-                        </a>
-                      </li>
-                      <li>
-                        <a href=''>
-                          <img src="images/img_3.jpg" alt="placeholder" className="mr-4" />
-                          <div className="text">
-                            <h4>How to Find the Video Games of Your Youth</h4>
-                            <div className="post-meta">
-                              <span className="mr-2">March 15, 2018 </span> •
-                            </div>
-                          </div>
-                        </a>
-                      </li>
-                      <li>
-                        <a href=''>
-                          <img src="images/img_4.jpg" alt="placeholder" className="mr-4" />
-                          <div className="text">
-                            <h4>How to Find the Video Games of Your Youth</h4>
-                            <div className="post-meta">
-                              <span className="mr-2">March 15, 2018 </span> •
-                            </div>
-                          </div>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
+                <FooterWidget {...props} formatDate={props.formatDate} />
                 <div className="col-md-1" />
                 <div className="col-md-4">
                   <div className="mb-5">
-                    <h3>Social</h3>
+                    <h3>Get Social</h3>
                     <ul className="list-unstyled footer-social">
                       <li><a href="#"><span className="fa fa-twitter" /> Twitter</a></li>
                       <li><a href="#"><span className="fa fa-facebook" /> Facebook</a></li>

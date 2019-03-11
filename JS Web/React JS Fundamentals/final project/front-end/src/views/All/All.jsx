@@ -25,7 +25,7 @@ class AllPosts extends Component {
                                             <span className="text">
                                                 <div className="post-meta">
                                                     <span className="author mr-2"><img src="images/atanas-yonkov.jpg" alt="pic placeholder" /> {p.author.username}</span>•
-                                                    <span className="mr-2">{p.creationDate} </span> •
+                                                    <span className="mr-2">{this.props.formatDate(p.creationDate)} </span> •
                                                 </div>
                                                 <h2>{p.title}</h2>
                                             </span>
@@ -37,7 +37,7 @@ class AllPosts extends Component {
 
                             ))}
                         </div>
-                        <Sidebar posts={this.props.posts} handleChange={this.props.handleChange} />
+                        <Sidebar posts={this.props.posts} handleChange={this.props.handleChange} formatDate={this.props.formatDate} />
                     </div>
                 </div>
             </section>

@@ -1,4 +1,5 @@
 const Post = require('../models/Post');
+const Comment = require('../models/Comment');
 
 module.exports = {
   getposts: (req, res, next) => {
@@ -6,8 +7,9 @@ module.exports = {
     Post.find()
       .sort({ creationDate: -1 })
       .populate('author', 'username')
+      .populate({path:'comments', populate:{path:'author'}})
       .then((posts) => {
-        
+
         res
           .status(200)
           .json({ message: 'Fetched posts successfully.', posts });
@@ -113,5 +115,28 @@ module.exports = {
 
       });
   },
+
+  createComment: async (req, res, next) => {
+    try {
+      const {comment, userId} = req.body;
+      const post = req.body.post._id
+      const author = userId
+      const content = await Comment.create({comment, post, author});
+      res.status(200)
+        .json({
+          message: 'Comment created successfully!',
+          comment
+        })
+      const postObj = await Post.findById(post);
+      postObj.comments.push(content._id)
+      await postObj.save();
+
+    } catch (error) {
+      if (!error.statusCode) {
+        error.statusCode = 500;
+      }
+      next(error);
+    }
+  }
 
 }

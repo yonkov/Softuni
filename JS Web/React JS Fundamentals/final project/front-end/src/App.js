@@ -29,10 +29,11 @@ class App extends Component {
       isAdmin: false,
       isAuthed: false,
       posts: [],
-      filtered:[]
+      filtered: []
     }
     this.handleSubmit = this.handleSubmit.bind(this)
   }
+
 
 
   componentDidMount() {
@@ -49,36 +50,47 @@ class App extends Component {
     }
     this.getPosts();
 
- 
+
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevState== this.state) {
+    if (prevState == this.state) {
       this.getPosts();
     }
   }
 
+  formatDate(date) {
+    var d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [year, month, day].join('-');
+  }
+
 
   handleChange(e, data) {
-
     this.setState({
       [e.target.name]: e.target.value
     })
   }
 
-  handleSearchChange(e, data){
+  handleSearchChange(e, data) {
 
-    let posts =this.state.posts;
+    let posts = this.state.posts;
     let searchedText = [];
     let filteredPosts = [];
     if (e.target.value) {
       searchedText = e.target.value
-      filteredPosts = posts.filter(p=>p.title.toLowerCase().includes(searchedText))
+      filteredPosts = posts.filter(p => p.title.toLowerCase().includes(searchedText))
       this.setState({
         posts: filteredPosts
       })
     }
-    
+
   }
 
   handleSubmit(e, data, isSignUp) {
@@ -151,13 +163,42 @@ class App extends Component {
       .catch(error => console.error(error));
   }
 
+  handleCommentSubmit(e, data) {
+    console.log(data);
+
+    e.preventDefault()
+    fetch('http://localhost:9999/feed/comment/create', {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: { "Content-Type": "application/json" }
+    })
+      .then(
+        rawData => rawData.json()
+      )
+      .then(
+
+        body => {
+          console.log(body);
+
+          if (!body.errors) {
+            toast.success(body.message);
+            this.getPosts()
+          }
+          else {
+            toast.error(body.message);
+          }
+        }
+      )
+      .catch(error => console.error(error));
+
+  }
+
   getPosts() {
     fetch('http://localhost:9999/feed/posts')
       .then(rawData => rawData.json())
       .then(
-        
+
         body => {
-          console.log(body);
           this.setState({
             posts: body.posts
           })
@@ -187,8 +228,10 @@ class App extends Component {
         <Switch>
 
           <Route exact path="/" render={(props) => (
-              <Home posts={this.state.posts} 
-              handleChange={this.handleSearchChange.bind(this)} 
+            <Home
+              posts={this.state.posts}
+              handleChange={this.handleSearchChange.bind(this)}
+              formatDate={this.formatDate}
               {...props} />
           )} />
 
@@ -225,37 +268,45 @@ class App extends Component {
                 {...props} />} />
 
           <Route exact path="/posts/:id" render={(props) =>
-            <Details
+            <Details handleSubmit={this.handleCommentSubmit.bind(this)}
               isAdmin={this.state.isAdmin}
               posts={this.state.posts}
+              handleChange={this.handleChange}
+              formatDate={this.formatDate}
               {...props} />} />
 
-          <PrivateRoute exact path="/edit/:id" 
+          <PrivateRoute exact path="/edit/:id"
             isAdmin={this.state.isAdmin} render={(props) =>
-            <Edit
-              getPosts = {this.getPosts.bind(this)}              
-              handleChange={this.handleChange}
-              history={this.props.history}
-              {...props} />} />
+              <Edit
+                getPosts={this.getPosts.bind(this)}
+                handleChange={this.handleChange}
+                history={this.props.history}
+                {...props} />} />
 
-          <PrivateRoute exact path="/delete/:id" 
-          isAdmin={this.state.isAdmin} render={(props) =>
-            <Delete
-              handleChange={this.handleChange}
-              history={this.props.history}
-              {...props} />} />
+          <PrivateRoute exact path="/delete/:id"
+            isAdmin={this.state.isAdmin} render={(props) =>
+              <Delete
+                handleChange={this.handleChange}
+                history={this.props.history}
+                {...props} />} />
 
-          <Route path="/about" component={About} />
+          <Route path="/about" render={(props) => (
+            <About posts={this.state.posts}
+              handleChange={this.handleSearchChange.bind(this)}
+              formatDate={this.formatDate}
+              {...props} />
+          )} />
 
           <Route exact path="/all" render={(props) => (
-              <AllPosts posts={this.state.posts} 
-              handleChange={this.handleSearchChange.bind(this)} 
+            <AllPosts posts={this.state.posts}
+              handleChange={this.handleSearchChange.bind(this)}
+              formatDate={this.formatDate} 
               {...props} />
           )} />
         </Switch>
 
 
-        <Footer />
+        <Footer posts={this.state.posts} formatDate={this.formatDate} />
       </Fragment>
     );
   }
