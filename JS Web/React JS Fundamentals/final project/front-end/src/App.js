@@ -2,6 +2,10 @@ import React, { Component, Fragment } from 'react';
 import { Route, Switch, Redirect, withRouter, } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
+import { Editor, EditorState } from 'draft-js';
+import 'draft-js/dist/Draft.css';
+import 'draft-js-static-toolbar-plugin/lib/plugin.css'
+
 
 import './services/authentication-service'
 import Header from './components/Header';
@@ -29,7 +33,8 @@ class App extends Component {
       isAdmin: false,
       isAuthed: false,
       posts: [],
-      filtered: []
+      filtered: [],
+      editorState: EditorState.createEmpty(),
     }
     this.handleSubmit = this.handleSubmit.bind(this)
   }
@@ -224,7 +229,7 @@ class App extends Component {
       <Fragment>
         <ToastContainer />
         <Header username={this.state.username} isAdmin={this.state.isAdmin} isAuthed={this.state.isAuthed} logout={this.logout.bind(this)} />
-
+        
         <Switch>
 
           <Route exact path="/" render={(props) => (
@@ -270,6 +275,7 @@ class App extends Component {
           <Route exact path="/posts/:id" render={(props) =>
             <Details handleSubmit={this.handleCommentSubmit.bind(this)}
               isAdmin={this.state.isAdmin}
+              isAuthed={this.state.isAuthed}
               posts={this.state.posts}
               handleChange={this.handleChange}
               formatDate={this.formatDate}

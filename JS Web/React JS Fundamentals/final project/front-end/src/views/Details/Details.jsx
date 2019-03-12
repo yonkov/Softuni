@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Sidebar from '../../components/Sidebar';
 import { NavLink } from 'react-router-dom'
+import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 
 class Details extends Component {
   constructor(props) {
@@ -40,7 +41,8 @@ class Details extends Component {
 
   render() {
     const { post } = this.state;
-    const { isAdmin } = this.props;
+    const { isAdmin, isAuthed } = this.props;
+console.log(isAuthed);
 
     if (!post) {
       return <span>Loading post ...</span>;
@@ -63,10 +65,10 @@ class Details extends Component {
               <div className="post-content-body">
                 <div className="row mb-5">
                 </div>
-                <p>{post.content}</p>
+                {ReactHtmlParser(post.content)}
               </div>
               <div className="pt-5">
-                <h3 className="mb-5">6 Comments</h3>
+                <h3 className="mb-5">Comments</h3>
                 <ul className="comment-list">
                 {post.comments.map(comment =>
                   <li className="comment">
@@ -86,8 +88,10 @@ class Details extends Component {
                 </ul>
                 {/* END comment-list */}
                 <div className="comment-form-wrap pt-5">
-                  <h3 className="mb-5">Leave a comment</h3>
-                  <form onSubmit={(e) => this.props.handleSubmit(e, this.state)} className="p-5 bg-light">
+                  {isAuthed ? <h3 className="mb-5">Leave a comment</h3> 
+                  : 
+                  <h3 className="mb-5">Please log in or register to post a comment</h3> }
+                  {isAuthed && <form onSubmit={(e) => this.props.handleSubmit(e, this.state)} className="p-5 bg-light">
 
                     <div className="form-group">
                       <label htmlFor="message">Message</label>
@@ -96,7 +100,7 @@ class Details extends Component {
                     <div className="form-group">
                       <input type="submit" defaultValue="Post Comment" className="btn btn-primary" />
                     </div>
-                  </form>
+                  </form>}
                 </div>
               </div>
             </div>

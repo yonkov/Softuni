@@ -33,6 +33,7 @@ class Create extends Component {
                         <div className="row">
                             <div className="col-md-12 form-group">
                                 <label htmlFor="content">Content</label>
+                                <div contenteditable="true"></div>
                                 <textarea name="content" onChange={this.handleChange} id="content" className="form-control " cols={30} rows={8} defaultValue={""} />
                             </div>
                         </div>
