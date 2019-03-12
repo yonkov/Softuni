@@ -18,10 +18,11 @@ import Create from './views/Create/Create';
 import Details from './views/Details/Details';
 import PrivateRoute from './components/PrivateRoute';
 import Edit from './views/Edit/Edit';
-import { authenticateUser } from './services/authentication-service';
+import getPosts from './services/post-service';
 import Delete from './views/Delete/Delete';
 import Sidebar from './components/Sidebar';
 import AllPosts from './views/All/All';
+import postService from './services/post-service';
 
 
 class App extends Component {
@@ -33,12 +34,10 @@ class App extends Component {
       isAdmin: false,
       isAuthed: false,
       posts: [],
-      filtered: [],
-      editorState: EditorState.createEmpty(),
+      filtered: []
     }
     this.handleSubmit = this.handleSubmit.bind(this)
   }
-
 
 
   componentDidMount() {
@@ -53,8 +52,8 @@ class App extends Component {
         isAuthed,
       })
     }
-    this.getPosts();
 
+    this.getPosts()
 
   }
 
@@ -137,7 +136,7 @@ class App extends Component {
         }
       )
       .catch(error => console.error(error));
-    authenticateUser(data, isSignUp)
+      
     this.props.history.push('/')
   }
 
