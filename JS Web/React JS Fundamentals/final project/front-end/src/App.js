@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import { Route, Switch, Redirect, withRouter, } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
-import { Editor, EditorState } from 'draft-js';
 import 'draft-js/dist/Draft.css';
 import 'draft-js-static-toolbar-plugin/lib/plugin.css'
 
@@ -18,11 +17,9 @@ import Create from './views/Create/Create';
 import Details from './views/Details/Details';
 import PrivateRoute from './components/PrivateRoute';
 import Edit from './views/Edit/Edit';
-import getPosts from './services/post-service';
 import Delete from './views/Delete/Delete';
 import Sidebar from './components/Sidebar';
 import AllPosts from './views/All/All';
-import postService from './services/post-service';
 
 
 class App extends Component {
@@ -58,7 +55,7 @@ class App extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevState == this.state) {
+    if (prevState === this.state) {
       this.getPosts();
     }
   }
@@ -75,15 +72,7 @@ class App extends Component {
     return [year, month, day].join('-');
   }
 
-
-  handleChange(e, data) {
-    this.setState({
-      [e.target.name]: e.target.value
-    })
-  }
-
   handleSearchChange(e, data) {
-
     let posts = this.state.posts;
     let searchedText = [];
     let filteredPosts = [];
@@ -95,6 +84,17 @@ class App extends Component {
       })
     }
 
+  }
+
+  handleSearchSubmit(e){
+    e.preventDefault()
+  }
+
+
+  handleChange(e, data) {
+    this.setState({
+      [e.target.name]: e.target.value
+    })
   }
 
   handleSubmit(e, data, isSignUp) {
@@ -141,34 +141,36 @@ class App extends Component {
   }
 
   handleCreateSubmit(e, data) {
+    
     e.preventDefault();
-
-    fetch('http://localhost:9999/feed/post/create', {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: { "Content-Type": "application/json" }
-    })
-      .then(
-        rawData => rawData.json()
-      )
-      .then(
-
-        body => {
-          if (!body.errors) {
-            toast.success(body.message);
-            this.props.history.push('/');
-            this.getPosts()
+    if (this.state.isAdmin) {
+      fetch('http://localhost:9999/feed/post/create', {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: { "Content-Type": "application/json" }
+      })
+        .then(
+          rawData => rawData.json()
+        )
+        .then(
+  
+          body => {
+            if (!body.errors) {
+              toast.success(body.message);
+              this.props.history.push('/');
+              this.getPosts()
+            }
+            else {
+              toast.error(body.message);
+            }
           }
-          else {
-            toast.error(body.message);
-          }
-        }
-      )
-      .catch(error => console.error(error));
+        )
+        .catch(error => console.error(error));      
+    }
+
   }
 
   handleCommentSubmit(e, data) {
-    console.log(data);
 
     e.preventDefault()
     fetch('http://localhost:9999/feed/comment/create', {
@@ -182,7 +184,6 @@ class App extends Component {
       .then(
 
         body => {
-          console.log(body);
 
           if (!body.errors) {
             toast.success(body.message);
@@ -234,6 +235,7 @@ class App extends Component {
           <Route exact path="/" render={(props) => (
             <Home
               posts={this.state.posts}
+              handleSearchSubmit={this.handleSearchSubmit.bind(this)}
               handleChange={this.handleSearchChange.bind(this)}
               formatDate={this.formatDate}
               {...props} />
@@ -271,7 +273,7 @@ class App extends Component {
                 history={this.props.history}
                 {...props} />} />
 
-          <Route exact path="/posts/:id" render={(props) =>
+          <Route path="/posts/:id" render={(props) =>
             <Details handleSubmit={this.handleCommentSubmit.bind(this)}
               isAdmin={this.state.isAdmin}
               isAuthed={this.state.isAuthed}
@@ -280,15 +282,16 @@ class App extends Component {
               formatDate={this.formatDate}
               {...props} />} />
 
-          <PrivateRoute exact path="/edit/:id"
+          <PrivateRoute  path="/edit/:id"
             isAdmin={this.state.isAdmin} render={(props) =>
               <Edit
+                isAdmin={this.state.isAdmin}
                 getPosts={this.getPosts.bind(this)}
                 handleChange={this.handleChange}
                 history={this.props.history}
                 {...props} />} />
 
-          <PrivateRoute exact path="/delete/:id"
+          <PrivateRoute path="/delete/:id"
             isAdmin={this.state.isAdmin} render={(props) =>
               <Delete
                 handleChange={this.handleChange}
@@ -302,14 +305,14 @@ class App extends Component {
               {...props} />
           )} />
 
-          <Route exact path="/all" render={(props) => (
+          <Route path="/all" render={(props) => (
             <AllPosts posts={this.state.posts}
+              handleSearchSubmit={this.handleSearchSubmit.bind(this)}
               handleChange={this.handleSearchChange.bind(this)}
               formatDate={this.formatDate} 
               {...props} />
           )} />
         </Switch>
-
 
         <Footer posts={this.state.posts} formatDate={this.formatDate} />
       </Fragment>

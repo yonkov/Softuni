@@ -10,7 +10,7 @@ const SidebarWidget = (props) => {
                 <ul>
                     {posts.slice(0,3).map(post=>(
                         <li key={post._id}>
-                        <a href=''>
+                        <NavLink to={"/posts/" + post._id}>
                             <img src={post.imageUrl} alt="Image placeholder" className="mr-4" />
                             <div className="text">
                                 <h4>{post.title}</h4>
@@ -18,7 +18,7 @@ const SidebarWidget = (props) => {
                                     <span className="mr-2">{props.formatDate(post.creationDate)}</span>
                                 </div>
                             </div>
-                        </a>
+                        </NavLink>
                     </li>
 
                     ))}

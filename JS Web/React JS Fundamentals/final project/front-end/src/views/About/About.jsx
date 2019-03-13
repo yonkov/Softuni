@@ -10,7 +10,7 @@ const About =(props) =>{
             <div className="col-md-12 col-lg-8 main-content">
               <div className="row">
                 <div className="col-md-12">
-                  <h2 className="mb-4">Hi There! I'm Craig David</h2>
+                  <h2 className="mb-4">Hi There! I'm Atanas Yonkov</h2>
                   <p className="mb-5"><img src="images/img_6.jpg" alt="Image placeholder" className="img-fluid" /></p>
                   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum minima eveniet recusandae suscipit
                     eum laboriosam fugit amet deleniti iste et. Ad dolores, necessitatibus non saepe tenetur impedit

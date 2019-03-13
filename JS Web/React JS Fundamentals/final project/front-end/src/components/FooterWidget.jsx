@@ -11,7 +11,7 @@ const FooterWidget = (props) => {
                 <ul>
                     {posts.slice(0, 3).map(post => (
                         <li key={post._id}>
-                            <a href=''>
+                            <NavLink to={"/posts/" + post._id}>
                                 <img src={post.imageUrl} alt="placeholder" className="mr-4" />
                                 <div className="text">
                                     <h4>{post.title}</h4>
@@ -19,7 +19,7 @@ const FooterWidget = (props) => {
                                         <span className="mr-2">{props.formatDate(post.creationDate)}</span> •
                                 </div>
                                 </div>
-                            </a>
+                            </NavLink>
                         </li>
                     )
                     )}

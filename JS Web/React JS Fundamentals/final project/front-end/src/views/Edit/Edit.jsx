@@ -44,8 +44,9 @@ class Edit extends Component {
 
   editPost(e, data) {
     e.preventDefault();
-
-    fetch('http://localhost:9999/feed/post/edit/' + this.props.match.params.id, {
+    
+    if (this.props.isAdmin) {
+      fetch('http://localhost:9999/feed/post/edit/' + this.props.match.params.id, {
       method: "POST",
       body: JSON.stringify(data),
       headers: { "Content-Type": "application/json" }
@@ -68,6 +69,8 @@ class Edit extends Component {
         }
       )
       .catch(error => console.error(error));
+    }
+
   }
   render() {
     return (

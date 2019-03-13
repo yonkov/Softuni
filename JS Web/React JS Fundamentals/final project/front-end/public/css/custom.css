@@ -118,5 +118,13 @@ body {
 }
 
 
+.btn.btn-primary:hover, .btn.btn-primary:active, .btn.btn-primary:focus {
+  border-color: #007bff;
+  background: #007bff;
+}
 
+.btn.btn-primary {
+  background:rgb(97, 219, 251);
+  border-color: rgb(97, 219, 251);
+}
 

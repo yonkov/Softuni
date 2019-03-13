@@ -8,10 +8,10 @@ const Header =(props) =>{
           <div className="container">
             <div className="row">
               <div className="col-9 social">
-                <NavLink to="#"><span className="fa fa-twitter" /></NavLink>
-                <NavLink to="#"><span className="fa fa-facebook" /></NavLink>
-                <NavLink to="#"><span className="fa fa-instagram" /></NavLink>
-                <NavLink to="#"><span className="fa fa-youtube-play" /></NavLink>
+                <NavLink to="/#"><span className="fa fa-twitter" /></NavLink>
+                <NavLink to="/#"><span className="fa fa-facebook" /></NavLink>
+                <NavLink to="/#"><span className="fa fa-instagram" /></NavLink>
+                <NavLink to="/#"><span className="fa fa-youtube-play" /></NavLink>
               </div>
             </div>
           </div>
@@ -21,7 +21,7 @@ const Header =(props) =>{
             <div className="col-12 text-center">
               <NavLink  className="absolute-toggle d-block d-md-none" data-toggle="collapse" to="#navbarMenu" role="button" aria-expanded="false" aria-controls="navbarMenu"><span className="burger-lines" /></NavLink>
               <img className="mb-4" src="/images/react-logo.png" alt="react-logo" width={96} height={96} />
-              <h1 className="site-logo"><NavLink to="index.html">My Awesome React Blog</NavLink></h1>
+              <h1 className="site-logo"><NavLink to="/">My Awesome React Blog</NavLink></h1>
             </div>
           </div>
         </div>
@@ -32,7 +32,7 @@ const Header =(props) =>{
               <ul className="navbar-nav mx-auto">
                 <li className="nav-item">
                 
-                  <NavLink  className="nav-link" to="/">Home</NavLink>
+                  <NavLink exact className="nav-link" to="/">Home</NavLink>
                 </li>
                 <li className="nav-item">
                   {!isAuthed && <NavLink  className="nav-link" to="/login">Login</NavLink>}

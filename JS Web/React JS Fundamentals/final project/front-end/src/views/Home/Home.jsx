@@ -63,6 +63,7 @@ class Home extends Component {
 
               {/* Show Sidebar */}
               <Sidebar posts={this.props.posts} 
+                handleSearchSubmit={this.props.handleSearchSubmit}
                 handleChange={this.props.handleChange} 
                 formatDate={this.props.formatDate}/>
             </div>

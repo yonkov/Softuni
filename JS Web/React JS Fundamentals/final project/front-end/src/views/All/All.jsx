@@ -37,7 +37,10 @@ class AllPosts extends Component {
 
                             ))}
                         </div>
-                        <Sidebar posts={this.props.posts} handleChange={this.props.handleChange} formatDate={this.props.formatDate} />
+                        <Sidebar posts={this.props.posts} 
+                        handleSearchSubmit={this.props.handleSearchSubmit}
+                        handleChange={this.props.handleChange} 
+                        formatDate={this.props.formatDate} />
                     </div>
                 </div>
             </section>

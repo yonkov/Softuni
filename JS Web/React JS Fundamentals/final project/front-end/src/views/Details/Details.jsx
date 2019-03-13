@@ -36,13 +36,11 @@ class Details extends Component {
         ? posts.find(p => p._id === match.params.id)
         : null
     });
-    console.log(this.state.post)
   }
 
   render() {
     const { post } = this.state;
     const { isAdmin, isAuthed } = this.props;
-console.log(isAuthed);
 
     if (!post) {
       return <span>Loading post ...</span>;
@@ -71,7 +69,7 @@ console.log(isAuthed);
                 <h3 className="mb-5">Comments</h3>
                 <ul className="comment-list">
                 {post.comments.map(comment =>
-                  <li className="comment">
+                  <li key={comment._id} className="comment">
                   <div className="vcard">
                     <img src="/images/person_1.jpg" alt="Image placeholder" />
                   </div>
@@ -90,7 +88,7 @@ console.log(isAuthed);
                 <div className="comment-form-wrap pt-5">
                   {isAuthed ? <h3 className="mb-5">Leave a comment</h3> 
                   : 
-                  <h3 className="mb-5">Please log in or register to post a comment</h3> }
+                  <h3 className="mb-5">Please <NavLink to="/login">log in</NavLink> or <NavLink to="/register">register</NavLink> to post a comment</h3> }
                   {isAuthed && <form onSubmit={(e) => this.props.handleSubmit(e, this.state)} className="p-5 bg-light">
 
                     <div className="form-group">
@@ -107,8 +105,6 @@ console.log(isAuthed);
           </div>
         </div>
       </section>
-
-
 
     );
   }

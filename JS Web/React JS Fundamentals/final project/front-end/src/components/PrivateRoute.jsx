@@ -15,7 +15,7 @@ export default class PrivateRoute extends Component {
 
         return (
             <Route {...this.props}>
-                this.props.children
+                {this.props.children}
             </Route>
         );
     }
