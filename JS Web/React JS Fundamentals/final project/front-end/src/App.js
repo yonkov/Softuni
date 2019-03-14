@@ -2,8 +2,6 @@ import React, { Component, Fragment } from 'react';
 import { Route, Switch, Redirect, withRouter, } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
-import 'draft-js/dist/Draft.css';
-import 'draft-js-static-toolbar-plugin/lib/plugin.css'
 
 
 import './services/authentication-service'
@@ -49,6 +47,7 @@ class App extends Component {
         isAuthed,
       })
     }
+
 
     this.getPosts()
 

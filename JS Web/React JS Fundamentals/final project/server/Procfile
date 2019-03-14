@@ -1,0 +1,1 @@
+server: nodemon index.js
