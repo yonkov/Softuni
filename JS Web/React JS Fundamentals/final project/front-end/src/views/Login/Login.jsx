@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {NavLink} from 'react-router-dom'
 
 class Login extends Component {
 
@@ -33,7 +34,7 @@ class Login extends Component {
           <span className="txt1">
             Don’t have an account? 
           </span>
-          <a href="/register" className="txt2"> Sign up</a>
+          <NavLink to="/register" className="txt2"> Sign up</NavLink>
         </div>
       </main>
     );

@@ -45,8 +45,8 @@ header {
     padding-bottom: 0;
     background: transparent !important; }
     @media (max-width: 767.98px) {
-      header .navbar {
-        background: #e6e6e6 !important; } }
+      /* header .navbar {
+        background: #e6e6e6 !important; } */ }
     header .navbar .navbar-nav.absolute-right {
       position: absolute;
       right: 0; }

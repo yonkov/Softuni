@@ -120,7 +120,6 @@ class App extends Component {
               isAuthed: !!body.username
             })
 
-
             localStorage.setItem('userId', body.userId)
             localStorage.setItem('username', body.username)
             localStorage.setItem('isAdmin', body.isAdmin)
@@ -172,6 +171,7 @@ class App extends Component {
   handleCommentSubmit(e, data) {
 
     e.preventDefault()
+    e.target.reset()
     fetch('http://localhost:9999/feed/comment/create', {
       method: "POST",
       body: JSON.stringify(data),
