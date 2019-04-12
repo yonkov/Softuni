@@ -2,7 +2,7 @@ const router = require('express').Router();
 const feedController = require('../controllers/feed');
 const isAuth = require('../middleware/is-auth');
 
-router.get('/posts', feedController.getposts);
+router.get('/posts', getposts);
 router.post('/post/create', feedController.createPost);
 
 router.get('/post/edit/:id', feedController.editGet);

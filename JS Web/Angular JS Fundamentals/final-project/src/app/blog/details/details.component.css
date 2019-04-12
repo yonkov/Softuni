@@ -1,0 +1,20 @@
+.bg-primary {
+    background-color: transparent !important;
+    border: none;
+}
+img {
+    width: 100%;
+}
+
+.admin-content{
+    padding-top: 30px;
+}
+.admin-content a:hover{
+    color:#B22222;;
+}
+h2{
+    padding: 20px 0 20px 0;
+}
+div{
+    font-size: 15px;
+}

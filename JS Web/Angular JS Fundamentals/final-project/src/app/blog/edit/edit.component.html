@@ -1,0 +1,41 @@
+<div class="container">
+    <div class="row space-top">
+        <div class="col-md-12">
+            <h1>Edit Post</h1>
+            <p>Please fill all fields.</p>
+        </div>
+    </div>
+    <form [formGroup] ="form" (submit)="editPost(post.id)">
+        <div class="row space-top">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="form-control-label" for="new-title">Title</label>
+                    <input class="form-control" value="{{post?.title}}" id="new-title" formControlName="title" type="text">
+                </div>
+                  <div class="alert alert-danger" *ngIf="f.title.touched && f.title.hasError('required')">
+                    This field is required
+                  </div>
+                <div class="alert alert-danger" *ngIf="f.title.hasError('minlength')">
+                  Length must be at least 10 chars!
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-control-label" for="new-image">Image</label>
+                    <input class="form-control" value="{{post?.image}}" id="new-image" formControlName="image" type="text">
+                </div>
+                <div class="alert alert-danger" *ngIf="f.image.touched && f.image.errors?.required">
+                  This field is required
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="new-material">Content</label>
+                    <textarea class="form-control" value="{{post?.content}}" id="new-material" cols={3} rows={1} formControlName="content"> </textarea>
+                </div>
+                <div class="alert alert-danger" *ngIf="f.content.touched && f.content.errors?.required">
+                    This field is required
+                  </div>
+                <input type="submit" class="btn btn-primary" value="Edit" [disabled]="invalid" />
+            </div>
+        </div>
+    </form>
+  </div>
+  

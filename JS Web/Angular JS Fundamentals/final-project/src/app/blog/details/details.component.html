@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="row space-top">
+    <div class="col-md-12">
+      <h1>Post Details</h1>
+    </div>
+  </div>
+  <div class="row space-top">
+    <div class="col-md-4">
+      <div class="card text-white bg-primary">
+        <div class="card-body">
+          <blockquote class="card-blockquote">
+            <img src="{{post.image}}" />
+          </blockquote>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-7">
+      <div class="admin-content" *ngIf="authService.isAdmin()">
+        <a [routerLink]="['/blog/edit', post.id]" class="">Edit Post </a>
+        <a [routerLink]="['/blog/delete', post.id]" class="">Delete Post</a>
+      </div>
+      <h2>{{post.title}}</h2>
+      <div innerHtml="{{post.content}}">
+    </div>
+  </div>
+</div>

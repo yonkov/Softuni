@@ -1,0 +1,49 @@
+img{
+    width:160px;
+}
+.post-entry-horzontal a .text {
+
+    padding: 30px;
+    border: 1px solid #e6e6e6;
+    border-left: none;
+
+}
+.post-entry-horzontal a .image, .post-entry-horzontal a .text {
+
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.post-entry-horzontal a {
+    overflow: hidden;
+    display: table;
+    position: relative;
+    top: 0;
+}
+
+.blog-entries .post-meta .author img {
+    width: 30px;
+    border-radius: 50%;
+    display: inline-block;
+}
+.col-md-12 {
+    padding-bottom: 30px;
+}
+.text{
+    width: 90%;
+}
+
+a {
+    text-decoration: none !important
+  }
+ 
+  .title:hover{
+      text-decoration: underline;
+      color: #B22222;
+  }
+
+  .post-entry-horzontal:hover {
+
+    box-shadow: 3px 3px 5px 0px rgba(135,121,135,1);
+
+}
