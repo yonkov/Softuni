@@ -1,10 +1,11 @@
 const express = require('express')
 const authCheck = require('../middleware/auth-check');
 const Post = require('../models/Post');
+const Comment = require('../models/Comment');
 
 const router = new express.Router()
 
-function validatePostForm (payload) {
+function validatePostForm(payload) {
   const errors = {}
   let isFormValid = true
   let message = ''
@@ -37,7 +38,7 @@ function validatePostForm (payload) {
 
 router.post('/create', authCheck, (req, res) => {
   const post = req.body
-  
+
   post.author = req.user._id
   const validationResult = validatePostForm(post)
   if (!validationResult.success) {
@@ -47,7 +48,7 @@ router.post('/create', authCheck, (req, res) => {
       errors: validationResult.errors
     })
   }
-  
+
 
   Post.create(post)
     .then(() => {
@@ -59,12 +60,12 @@ router.post('/create', authCheck, (req, res) => {
     })
 })
 
-router.get('/all', authCheck ,(req, res) => {
+router.get('/all', authCheck, (req, res) => {
   const page = parseInt(req.query.page) || 1
   const search = req.query.search
 
   Post.find({})
-  .sort({ creationDate: -1 })
+    .sort({ creationDate: -1 })
     .then((Post) => {
       return res.status(200).json(Post)
     })
@@ -73,6 +74,7 @@ router.get('/all', authCheck ,(req, res) => {
 router.get('/details/:id', authCheck, (req, res) => {
   const id = req.params.id
   Post.findById(id)
+  .populate({path:'comments', populate:{path:'author'}})
     .then((Post) => {
       if (!Post) {
         return res.status(404).json({
@@ -80,12 +82,12 @@ router.get('/details/:id', authCheck, (req, res) => {
           message: 'Entry does not exists!'
         })
       }
-
       let response = {
         id,
         title: Post.title,
         image: Post.image,
         content: Post.content,
+        comments: Post.comments
       }
 
       res.status(200).json(response)
@@ -93,19 +95,10 @@ router.get('/details/:id', authCheck, (req, res) => {
 })
 
 
-router.get('/user', authCheck, (req, res) => {
-  const user = req.user._id
-
-  Post.find({creator: user})
-    .then((Post) => {
-      return res.status(200).json(Post)
-    })
-})
-
 router.delete('/delete/:id', authCheck, (req, res) => {
   const id = req.params.id
   const user = req.user._id
-  
+
   Post.findById(id)
     .then((Post) => {
       if (!Post) {
@@ -114,12 +107,12 @@ router.delete('/delete/:id', authCheck, (req, res) => {
           message: 'Post does not exists!'
         })
       }
-      
+
       if ((!req.user.roles.includes("Admin"))) {
-         return res.status(401).json({
-           success: false,
-           message: 'Unauthorized!'
-         })
+        return res.status(401).json({
+          success: false,
+          message: 'Unauthorized!'
+        })
       }
     })
     .catch((error) => {
@@ -128,29 +121,29 @@ router.delete('/delete/:id', authCheck, (req, res) => {
       }
 
     });
-      
-      
-      Post.findByIdAndDelete(id)
-      .then(
-        res.status(200)
-          .json({
-            message: "Post deleted!",
-            id
-          })
-      )
-      .catch((error) => {
-        if (!error.statusCode) {
-          error.statusCode = 500;
-        }
-  
-      });
+
+
+  Post.findByIdAndDelete(id)
+    .then(
+      res.status(200)
+        .json({
+          message: "Post deleted!",
+          id
+        })
+    )
+    .catch((error) => {
+      if (!error.statusCode) {
+        error.statusCode = 500;
+      }
+
+    });
 })
 
 router.put('/edit/:id', authCheck, (req, res) => {
   const id = req.params.id;
   const post = req.body;
   console.log(post);
-  
+
 
   if (!post) {
     return res.status(404).json({
@@ -181,34 +174,33 @@ router.put('/edit/:id', authCheck, (req, res) => {
         success: true,
         message: 'Post edited successfully!'
       })
-  })
-})
-
-router.get('/:id', authCheck, (req, res) => {
-  const id = req.params.id
-
-  Post.findById(id)
-    .then(Post => {
-      if (!Post) {
-        return res.status(404).json({
-          success: false,
-          message: 'Entry does not exists!'
-        })
-      }
-
-      let response = {
-        id,
-        title: Post.title,
-        content: Post.content,
-        image: Post.image
-      }
-
-      if (Post.material) {
-        response.material = Post.material
-      }
-
-      res.status(200).json(response)
     })
 })
+
+
+router.post('/comment/create', authCheck, async (req, res, next) => {
+  try {
+    const {id, comment} = req.body; 
+    const post = id;
+    const author = req.user._id
+    
+    const content = await Comment.create({ comment, post, author });
+    res.status(200)
+      .json({
+        message: 'Comment created successfully!',
+        comment
+      })
+    const postObj = await Post.findById(post);
+    postObj.comments.push(content._id)
+    await postObj.save();
+
+  } catch (error) {
+    if (!error.statusCode) {
+      error.statusCode = 500;
+    }
+    next(error);
+  }
+});
+
 
 module.exports = router

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Post } from '../models/post';
 import {Observable} from '../../../node_modules/rxjs'
 const createF= 'http://localhost:5000/post/create'
+const createC= 'http://localhost:5000/post/comment/create'
 const getAllF= 'http://localhost:5000/post/all'
 const getSingleF= 'http://localhost:5000/post/details/'
 const editSingleF= 'http://localhost:5000/post/edit/'
@@ -15,6 +16,10 @@ export class BlogService {
 
   createPost(data){
     return this.http.post(createF, data)
+  }
+
+  createComment(data){
+    return this.http.post(createC, data)
   }
 
   getAllPost(): Observable<Array<Post>>{
