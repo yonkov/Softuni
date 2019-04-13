@@ -60,7 +60,7 @@ router.post('/create', authCheck, (req, res) => {
     })
 })
 
-router.get('/all', authCheck, (req, res) => {
+router.get('/all', (req, res) => {
   const page = parseInt(req.query.page) || 1
   const search = req.query.search
 
@@ -71,7 +71,7 @@ router.get('/all', authCheck, (req, res) => {
     })
 })
 
-router.get('/details/:id', authCheck, (req, res) => {
+router.get('/details/:id', (req, res) => {
   const id = req.params.id
   Post.findById(id)
   .populate({path:'comments', populate:{path:'author'}})
