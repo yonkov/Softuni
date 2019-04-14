@@ -1,0 +1,55 @@
+/* You can add global styles to this file, and also import other style files */
+
+.headline{
+    padding:30px 0 30px;
+    font-size:46px;
+}
+h2{
+    padding-bottom:30px;
+}
+img {
+    width: 100%;
+}
+
+.alert-danger {
+    width: 50%;
+    margin: 0 auto;
+}
+.header-logo{
+    width: 120px;
+}
+.content{
+    margin-bottom: 60px;
+}
+html {
+    position: relative;
+    min-height: 100%;
+  }
+  body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+  }
+  .footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color:#f8f9fa;
+    color:#333; 
+  }
+  .footer-content{
+      padding-top:12px;
+      padding-bottom:0px;
+  }
+  #content {
+    margin-bottom: 50px;
+}
+@media only screen and (min-width: 993px){
+    .col-md-9 {
+        position: relative;
+        left: 11%;
+    }
+}
+
+.col-md-4 {
+    margin: 40px auto;
+}

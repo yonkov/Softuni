@@ -1,8 +1,0 @@
-.img-fluid {
-    border: 4px solid #fff;
-    -webkit-box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.4);
-    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.4);
-    max-width: 100px;
-    border-radius: 50%;
-    position: relative;
-}

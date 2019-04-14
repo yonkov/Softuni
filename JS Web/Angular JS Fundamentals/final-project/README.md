@@ -8,7 +8,7 @@ Unauthorized users can visit the home page and the about pageand  can read all t
 
 ## Private Part
 
-Logged-in users can post comments and read all the articles. However, they can create, modify or delete articles.
+Logged-in users can post comments and read all the articles. However, they cannot create, modify or delete articles.
 
 ## Admin Part
 
@@ -21,11 +21,23 @@ The app tries to follow the best folder structure practices as described in this
 https://itnext.io/choosing-a-highly-scalable-folder-structure-in-angular-d987de65ec7.
 
 ## Forms and Directives
+
 The app uses reactive forms. Front-end form validation is included.
 
 ## Lazy Loading
 The whole Blog section is lazy-loaded to allow faster initial loading of the app.
 Lazy loading is also added for the authentication part.
 
+## Rich text editing
+
+The admin can format the layout of the blog posts by using html tags.
+
 ## Responsive Design
+
 The app uses Bootstrap and is fully responsive.
+
+## Live deploy on cloud environment
+
+The App is deployed to Heroku free cloud system. The database is uploaded to MongoDB Atlas.  
+
+Live url: https://angular-blog-softuni.herokuapp.com/
