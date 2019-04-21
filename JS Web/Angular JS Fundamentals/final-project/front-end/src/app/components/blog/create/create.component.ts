@@ -9,8 +9,9 @@ import { Subscription } from 'rxjs';
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.css']
 })
-export class CreateComponent implements OnInit {
+export class CreateComponent implements OnInit, OnDestroy {
 form: FormGroup;
+createSub: Subscription
   constructor(private fb: FormBuilder, private postService: BlogService, private router: Router ) { }
 
   ngOnInit() {
@@ -31,5 +32,9 @@ form: FormGroup;
   get f(){return this.form.controls}
 
   get invalid(){return this.form.invalid}
+  
+  ngOnDestroy(){
+    this.createSub.unsubscribe()
+  }
 
 }
